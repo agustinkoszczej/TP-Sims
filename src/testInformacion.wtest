@@ -7,28 +7,28 @@ import Trabajos.*
 test "22. Contarle una información a un Sim" {
 	var pepe = new Sim("masculino", 30, 100, [], buenazo, 300, "femenino")	
 	
-	pepe.recibirInfo("Cocinar")
+	pepe.conocimientos("Cocinar")
 	assert.that(pepe.conoce("Cocinar"))
 }
 test "23. Saber cuán conocedor es un Sim" {
 // esto es, cual es la cantidad de caracteres total de todos sus conocimientos
 	var pepe = new Sim("masculino", 30, 100, [], buenazo, 300, "femenino")	
 	
-	pepe.recibirInfo("Cocinar")
-	pepe.recibirInfo("Comer")
+	pepe.conocimientos("Cocinar")
+	pepe.conocimientos("Comer")
 	assert.equals(pepe.conocimientos().size(), 2)
 }
 test "24. Saber si un Sim tiene un conocimiento dado" {
 	var pepe = new Sim("masculino", 30, 100, [], buenazo, 300, "femenino")	
 	
-	pepe.recibirInfo("Cocinar")
+	pepe.conocimientos("Cocinar")
 	assert.that(pepe.conoce("Cocinar"))
 }
 test "25. Hacer que un Sim tenga amnesia y se olvide (irreversiblemente) todos sus conocimientos" {
 	
 	var pepe = new Sim("masculino", 30, 100, [], buenazo, 300, "femenino")	
-	pepe.recibirInfo("Bailar")
-	pepe.recibirInfo("Cocinar")
+	pepe.conocimientos("Bailar")
+	pepe.conocimientos("Cocinar")
 	
 	pepe.amnesia()
 	

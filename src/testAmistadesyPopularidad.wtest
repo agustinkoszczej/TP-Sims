@@ -89,5 +89,5 @@ tiene el mayor coeficiente de popularidad entre todos ellos." {
 	var susan = new Sim("femenino", 29, 100, [ana], superficial, 600, "masculino")
 	var pepe = new Sim("masculino", 30, 100, [ana, susan], buenazo, 300, "femenino")
 
-	assert.that(pepe.nivelPopularidad() > pepe.amigoMasPopular().nivelPopularidad())
+	assert.that(pepe.masPopularQueAmigos())
 }

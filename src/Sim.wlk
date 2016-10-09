@@ -13,8 +13,9 @@ class Sim {
 	var trabajo = desocupado
 	var preferencia
 	var conocimientos = #{}
-	var estadoDeAnimo = null
+	var estadoDeAnimo = normal
 	var relacion = new Relacion(self, self)
+	
 	constructor (unSexo, unaEdad, unNivelDeFelicidad, unosAmigos, unaPersonalidad, unDinero, unaPreferencia){
 		sexo = unSexo
 		edad = unaEdad
@@ -26,9 +27,7 @@ class Sim {
 	}
 	
 	
-	//+----------------+
-	//| Inicio Getters |
-	//+----------------+
+	//GETTERS 
 	
 	method sexo (){
 		return sexo
@@ -64,19 +63,11 @@ class Sim {
 		return relacion
 	}
 	
-	//+-------------+
-	//| Fin Getters |
-	//+-------------+
-	
-	//---------------------------------------------------------------
-	
-	//+------------------+
-	//| Inicio Amistades |
-	//+------------------+
+	// AMISTADES
 	
 	
 	method hacerseAmigoDe (unSim){
-		if(not amigos.contains(unSim)){
+		if(not self.esAmigoDe(unSim)){
 			amigos.add(unSim)
 			nivelFelicidad += self.valorarSim(unSim)
 		}
@@ -87,43 +78,19 @@ class Sim {
 		unSim.hacerseAmigoDe(self)
 	}
 	
-	//+---------------+
-	//| Fin Amistades |
-	//+---------------+
-	
-	//---------------------------------------------------------------
-	
-	//+--------------------+
-	//| Inicio Popularidad |
-	//+--------------------+
+	// POPULARIDAD 
 	
 	method nivelPopularidad (){
 		return amigos.sum({unSim => unSim.nivelFelicidad()})
 	}
 	
-	//+-----------------+
-	//| Fin Popularidad |
-	//+-----------------+
-	
-	//---------------------------------------------------------------
-	
-	//+-------------------+
-	//| Inicio Valoracion |
-	//+-------------------+
+	// VALORACION
 	
 	method valorarSim(simValorado){
 		return personalidad.valorarPersonalidad(self, simValorado)
 	}
 	
-	//+----------------+
-	//| Fin Valoracion |
-	//+----------------+
-		
-	//---------------------------------------------------------------
-	
-	//+----------------+
-	//| Inicio Abrazos |
-	//+----------------+
+	// ABRAZOS
 	
 	method abrazar(unSim, duracion) {
 		
@@ -147,15 +114,7 @@ class Sim {
 	
 	}
 	
-	//+-------------+
-	//| Fin Abrazos |
-	//+-------------+
-	
-	//---------------------------------------------------------------
-	
-	//+-----------------------------+
-	//| Inicio Relaciones (Parejas) |
-	//+-----------------------------+
+	// RELACIONES (PAREJAS)
 	
 	
 	method empezarRelacionCon(unSim){
@@ -184,15 +143,7 @@ class Sim {
 		}
 	}
 	
-	//+--------------------------+
-	//| Fin Relaciones (Parejas) |
-	//+--------------------------+
-	
-	//---------------------------------------------------------------
-	
-	//+-------------------------+
-	//| Inicio Dinero y Trabajo |
-	//+-------------------------+
+	// DINERO Y TRABAJO
 	
 	method asignarTrabajoCopado (sueldo, felicidad){
 		trabajo = new Copado (sueldo, felicidad)
@@ -221,16 +172,7 @@ class Sim {
 		}
 	}
 	
-	//+----------------------+
-	//| Fin Dinero y Trabajo |
-	//+----------------------+
-	
-	
-	//---------------------------------------------------------------
-	
-	//+--------------------+
-	//| Inicio Atracciones |
-	//+--------------------+
+	// ATRACCIONES
 	
 	method joven(){
 		return (edad >= 18 && edad <= 29)
@@ -250,25 +192,14 @@ class Sim {
 		}
 	}
 	
-	//+-----------------+
-	//| Fin Atracciones |
-	//+-----------------+
-		
-	//---------------------------------------------------------------
+	// INFORMACION Y CONOCIMIENTOS
 	
-	//+------------------------------------+
-	//| Inicio Informacion y Conocimientos |
-	//+------------------------------------+
-	
-	method contarInfoA(info, unSim){
-		unSim.recibirInfo(info)
+	method contarInformacionA(info, unSim){
+		unSim.conocimientos(info)
 	}
 	
-	method recibirInfo(info){
-		if(not self.conoce(info))
-		{
+	method conocimientos(info){ // Setter Conocimientos
 			conocimientos.add(info)
-		}
 	}
 	
 	method conoce(info)
@@ -282,40 +213,20 @@ class Sim {
 	}
 	
 	method amnesia(){
-		conocimientos.clear() // preguntar si hay que hacer una variable auxiliar en caso de recuperar los conocimientos
+		conocimientos.clear()
 	}
 	
-	//+---------------------------------+
-	//| Fin Informacion y Conocimientos |
-	//+---------------------------------+
+	// ESTADOS DE ANIMO
 	
-	//---------------------------------------------------------------
-	
-	//+-------------------------+
-	//| Inicio Estados de Animo |
-	//+-------------------------+
-	
-	method darEstadoDeAnimo(estado){
-		if (estadoDeAnimo != null){
-			estadoDeAnimo = normal
-		}
-		else{
+	method sentirse(estado){
 			estadoDeAnimo = estado
-			estado.efectuar(self)	
-		}	
+			estado.efectuar(self)		
 	}
+	method volverALaNormalidad(){
+		estadoDeAnimo = normal
+	} 
 	
-	//---------------------------------------------------------------
-	
-	//+---------------------+
-	//| Fin Estados de Animo|
-	//+---------------------+
-	
-	//---------------------------------------------------------------
-	
-	//+-------------------------+
-	//| Inicio Ataques de Celos |
-	//+-------------------------+
+	// ATAQUES DE CELOS
 	
 	method filtrarAmigos(criterio){
 		amigos = amigos.filter(criterio)
@@ -327,15 +238,7 @@ class Sim {
 		tipoDeCelos.ataque(self)
 	}
 	
-	//+---------------------+
-	//| Fin Ataques de Celos|
-	//+---------------------+
-	
-	//---------------------------------------------------------------
-	
-	//+---------------+
-	//| Inicio Varios |
-	//+---------------+
+	// VARIOS
 	
 	method darDinero(cantidad){
 		dinero += cantidad
@@ -345,24 +248,14 @@ class Sim {
 		nivelFelicidad += cantidad
 	}
 	
-	//+------------+
-	//| Fin Varios |
-	//+------------+
-	
-	//---------------------------------------------------------------
-	
-	//+-----------------------+
-	//| Inicio Requerimientos |
-	//+-----------------------+
+	// REQUERIMIENTOS
 	
 	
 	method amigoMasValorado(){
 		if(amigos.isEmpty()){
-			return null
+			self.error("No tengo amigos :(")
 		}
-		else {
-			return amigos.max({unSim => self.valorarSim(unSim)})
-		}		
+			return amigos.max({unSim => self.valorarSim(unSim)})		
 	}
 	
 	method esAmigoDe(otroSim){
@@ -370,7 +263,14 @@ class Sim {
 	}
 	
 	method amigoMasPopular(){
-		return amigos.max({unSim => unSim.nivelPopularidad()})
+		if(amigos.isEmpty()){
+			self.error("No tengo amigos :(")
+		}
+			return amigos.max({unSim => unSim.nivelPopularidad()})
+	}
+	
+	method masPopularQueAmigos(){
+		return self.nivelPopularidad() > self.amigoMasPopular().nivelPopularidad()
 	}
 	
 	method amigosMasNuevos(cantidad){
@@ -383,12 +283,5 @@ class Sim {
 	
 	method leAtraenDeLaLista(listaDeSims){
 		return listaDeSims.filter({sim => self.leAtrae(sim)})
-	}
-	
-	//+--------------------+
-	//| Fin Requerimientos |
-	//+--------------------+
-	
-	//---------------------------------------------------------------
-	
+	}	
 }

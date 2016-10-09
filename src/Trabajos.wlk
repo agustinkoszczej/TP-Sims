@@ -43,5 +43,4 @@ class Aburrido inherits Trabajo{
 	}	
 }
 
-
 object desocupado inherits Trabajo (0,0){ }

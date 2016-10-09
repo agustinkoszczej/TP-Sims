@@ -9,7 +9,7 @@ test "26. Hacer que un Sim tenga un estado de ánimo particular. Si el Sim ya ten
 (vuelve a la normalidad) y es reemplazada por este" {
 
 	var pepe = new Sim("masculino", 30, 100, [], buenazo, 300, "femenino")	
-	pepe.darEstadoDeAnimo(incomodo)
+	pepe.sentirse(incomodo)
 	assert.equals(pepe.estadoDeAnimo(), incomodo)
 
 }
@@ -17,7 +17,7 @@ test "26. Hacer que un Sim tenga un estado de ánimo particular. Si el Sim ya ten
 test "27. Hacer que a un Sim se le vaya su estado de ánimo actual (y vuelva a la normalidad)" {
 	
 	var pepe = new Sim("masculino", 30, 100, [], buenazo, 300, "femenino")	
-	pepe.darEstadoDeAnimo(incomodo)
-	pepe.darEstadoDeAnimo(soniador)
+	pepe.sentirse(incomodo)
+	pepe.volverALaNormalidad()
 	assert.equals(pepe.estadoDeAnimo(), normal)
 }

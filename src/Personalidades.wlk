@@ -1,9 +1,5 @@
 import Sim.*
 	
-	//+--------------------+
-	//| Inicio Interesados |
-	//+--------------------+
-	
 object interesado {
 	method valorarPersonalidad (sim, simValorado){
 		var amigosDelSim = simValorado.amigos()
@@ -16,18 +12,6 @@ object interesado {
 	}
 }
 
-
-	//+-----------------+
-	//| Fin Interesados |
-	//+-----------------+
-	
-	//---------------------------------------------------------------
-	
-	//+----------------------+
-	//| Inicio Superficiales |
-	//+----------------------+
-
-
 object superficial {
 	method valorarPersonalidad  (sim, simValorado){
 		return 20 * simValorado.nivelPopularidad()
@@ -37,17 +21,6 @@ object superficial {
 		return ((simDeInteres.nivelPopularidad() >= unSim.amigoMasPopular().nivelPopularidad()) && simDeInteres.joven())
 	}
 }
-
-
-	//+-------------------+
-	//| Fin Superficiales |
-	//+-------------------+
-	
-	//---------------------------------------------------------------
-	
-	//+-----------------+
-	//| Inicio Buenazos |
-	//+-----------------+
 
 object buenazo {
 	method valorarPersonalidad (sim, simValorado){
@@ -59,16 +32,6 @@ object buenazo {
 	}
 }
 
-	//+--------------+
-	//| Fin Buenazos |
-	//+--------------+
-	
-	//---------------------------------------------------------------
-
-	//+----------------------------+
-	//| Inicio Peleados con la Vida|
-	//+----------------------------+
-	
 object peleadoConLaVida {
 	method valorarPersonalidad (sim, simValorado){
 		return 0
@@ -78,7 +41,3 @@ object peleadoConLaVida {
 		return (simDeInteres.triste())
 	}
 }
-
-	//+-------------------------+
-	//| Fin Peleados con la Vida|
-	//+-------------------------+

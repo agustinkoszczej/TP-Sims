@@ -12,9 +12,6 @@ class Relacion{
 		circuloDeAmigos = (unSim.amigos() + otroSim.amigos()).asSet()
 	}
 	
-	//+----------------+
-	//| Inicio Getters |
-	//+----------------+
 	
 	method unSim(){
 		return unSim
@@ -28,12 +25,6 @@ class Relacion{
 	method enCurso (){
 		return enCurso
 	}
-	
-	//+-------------+
-	//| Fin Getters |
-	//+-------------+
-	
-	//---------------------------------------------------------------
 	
 	method esMiembro(sim){
 		return(unSim === sim || otroSim === sim)
