@@ -1,0 +1,93 @@
+import Celos.*
+import EstadosDeAnimo.*
+import Personalidades.*
+import Relaciones.*
+import Sim.*
+import Trabajos.*
+
+test "4. Hacer que un Sim se haga amigo de otro" {
+	
+	var ana = new Sim("femenino", 26, 100, [], interesado, 140, "masculino")
+	var susan = new Sim("femenino", 29, 100, [ana], superficial, 600, "masculino")
+	
+	ana.hacerseAmigoDe(susan)	
+
+	assert.that(ana.amigos().contains(susan))
+
+}
+
+test "5. Hacer que dos Sims se hagan amigos entre sí" {
+	
+	var ana = new Sim("femenino", 26, 100, [], interesado, 140, "masculino")
+	var susan = new Sim("femenino", 29, 100, [], superficial, 600, "masculino")
+	
+	ana.hacerseAmigosMutuamente(susan)	
+	
+	assert.that(susan.amigos().contains(ana) and ana.amigos().contains(susan))
+}
+
+test "6. Saber si un Sim es amigo de otro." {
+	
+	var ana = new Sim("femenino", 26, 100, [], interesado, 140, "masculino")
+	var susan = new Sim("femenino", 29, 100, [ana], superficial, 600, "masculino")
+	
+	assert.that(susan.esAmigoDe(ana))
+}
+
+test "7. Preguntarle a un Sim cuales son sus 4 amigos más nuevos" {
+	
+	var ana = new Sim("femenino", 26, 100, [], interesado, 140, "masculino")
+	var susan = new Sim("femenino", 29, 100, [], superficial, 600, "masculino")
+	var pepe = new Sim("masculino", 30, 100, [], buenazo, 300, "femenino")	
+	
+	var agustin = new Sim("masculino", 20, 100, [], buenazo, 500, "femenino")
+	var bruno = new Sim("masculino", 20, 100, [], buenazo, 500, "femenino")
+	var joaquin = new Sim("masculino", 25, 100, [], buenazo, 500, "femenino")
+	
+	ana.hacerseAmigoDe(susan)
+	ana.hacerseAmigoDe(pepe)
+	ana.hacerseAmigoDe(agustin)
+	ana.hacerseAmigoDe(bruno)
+	ana.hacerseAmigoDe(joaquin)
+	
+	assert.equals(ana.amigosMasNuevos(4),[joaquin, bruno, agustin, pepe])
+}
+
+test "8. Preguntarle a un Sim cuales son sus 4 amigos más antiguos" {
+	
+	var ana = new Sim("femenino", 26, 100, [], interesado, 140, "masculino")
+	var susan = new Sim("femenino", 29, 100, [], superficial, 600, "masculino")
+	var pepe = new Sim("masculino", 30, 100, [], buenazo, 300, "femenino")	
+	
+	var agustin = new Sim("masculino", 20, 100, [], buenazo, 500, "femenino")
+	var bruno = new Sim("masculino", 20, 100, [], buenazo, 500, "femenino")
+	var joaquin = new Sim("masculino", 25, 100, [], buenazo, 500, "femenino")
+	
+	ana.hacerseAmigoDe(susan)
+	ana.hacerseAmigoDe(pepe)
+	ana.hacerseAmigoDe(agustin)
+	ana.hacerseAmigoDe(bruno)
+	ana.hacerseAmigoDe(joaquin)
+	
+	assert.equals(ana.amigosMasViejos(4),[susan, pepe, agustin, bruno])
+}
+
+test "9. Preguntarle a un Sim cual es su nivel de popularidad" {
+	
+	var ana = new Sim("femenino", 26, 100, [], interesado, 140, "masculino")
+	var susan = new Sim("femenino", 29, 100, [], superficial, 600, "masculino")
+	var pepe = new Sim("masculino", 30, 100, [ana, susan], buenazo, 300, "femenino")	
+	
+	assert.equals(pepe.nivelPopularidad(), 200)
+}
+
+test "10. Preguntarle a un Sim si es el más popular de su círculo de amigos: esto se da cuando
+tiene el mayor coeficiente de popularidad entre todos ellos." {
+	
+	
+	var ana = new Sim("femenino", 26, 100, [], interesado, 140, "masculino")
+	var susan = new Sim("femenino", 29, 100, [ana], superficial, 600, "masculino")
+	var pepe = new Sim("masculino", 30, 100, [ana, susan], buenazo, 300, "femenino")
+
+	assert.that(pepe.nivelPopularidad() > pepe.amigoMasPopular().nivelPopularidad())
+}

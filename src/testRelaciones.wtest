@@ -1,0 +1,134 @@
+import Celos.*
+import EstadosDeAnimo.*
+import Personalidades.*
+import Relaciones.*
+import Sim.*
+import Trabajos.*
+
+
+test "11. Hacer que dos Sims inicien una relaciÃ³n" {
+	
+	var ana = new Sim("femenino", 26, 100, [], interesado, 140, "masculino")
+	var susan = new Sim("femenino", 29, 100, [ana], superficial, 600, "masculino")
+	var pepe = new Sim("masculino", 30, 100, [ana,susan], buenazo, 300, "femenino")	
+
+	pepe.empezarRelacionCon(ana)
+	assert.that(pepe.pareja() == ana && ana.pareja() == pepe)
+
+}
+
+test "12. Saber si un Sim forma parte de una relaciÃ³n." {
+	
+	//Ana forma parte de una relacion entre Pepe y Ana, y Susan no
+	
+	var ana = new Sim("femenino", 26, 100, [], interesado, 140, "masculino")
+	var susan = new Sim("femenino", 29, 100, [ana], superficial, 600, "masculino")
+	var pepe = new Sim("masculino", 30, 100, [ana,susan], buenazo, 300, "femenino")	
+	
+	pepe.empezarRelacionCon(ana)
+	var relacion = pepe.relacion()
+	
+	assert.that(relacion.esMiembro(ana) && not relacion.esMiembro(susan))
+	
+	
+}
+
+test "13. Hacer que una relaciÃ³n termine, haciendo que sus miembros dejen de formar parte de ella." {
+	
+	var ana = new Sim("femenino", 26, 100, [], interesado, 140, "masculino")
+	var susan = new Sim("femenino", 29, 100, [ana], superficial, 600, "masculino")
+	var pepe = new Sim("masculino", 30, 100, [ana,susan], buenazo, 300, "femenino")	
+	
+	pepe.empezarRelacionCon(ana)
+	var relacion = pepe.relacion()
+	relacion.terminar()
+	
+	assert.that(not pepe.relacion().esMiembro(ana) && not ana.relacion().esMiembro(pepe))
+	
+}
+
+test "14. Saber si una relaciÃ³n terminÃ³." {
+	
+	//Si una relacion termina ya no esta en curso
+	
+	var ana = new Sim("femenino", 26, 100, [], interesado, 140, "masculino")
+	var susan = new Sim("femenino", 29, 100, [ana], superficial, 600, "masculino")
+	var pepe = new Sim("masculino", 30, 100, [ana,susan], buenazo, 300, "femenino")	
+	
+	ana.empezarRelacionCon(pepe)
+	var esaRelacion = ana.relacion()
+	
+	esaRelacion.terminar()
+	assert.that(not esaRelacion.enCurso())
+}
+
+
+test "15. Conocer el círculo de amigos de la relación" {
+	
+	var jaime = new Sim("masculino", 31, 125, [], peleadoConLaVida, 10000, "femenino")
+	var loras = new Sim("masculino", 20, 50, [], interesado, 200, "masculino")
+	var ana = new Sim("femenino", 26, 100, [loras,jaime], interesado, 140, "masculino")
+	var susan = new Sim("femenino", 29, 100, [ana,jaime], superficial, 600, "masculino")
+	var pepe = new Sim("masculino", 30, 100, [ana,susan,loras], buenazo, 300, "femenino")	
+	
+	pepe.empezarRelacionCon(ana)
+	var relacion = pepe.relacion()
+	
+	assert.equals(relacion.circuloDeAmigos(), #{loras,jaime,susan,ana})
+}
+
+test "16. Conocer los miembros de una relaciÃ³n (siempre son dos)"{
+	var ana = new Sim("femenino", 26, 100, [], interesado, 140, "masculino")
+	var susan = new Sim("femenino", 29, 100, [ana], superficial, 600, "masculino")
+	var pepe = new Sim("masculino", 30, 100, [ana,susan], buenazo, 300, "femenino")	
+	
+	pepe.empezarRelacionCon(ana)
+	var relacion = pepe.relacion()
+	
+	assert.that((relacion.unSim() == ana || relacion.otroSim() == ana) && (relacion.unSim() == pepe || relacion.otroSim() == pepe))
+}
+
+
+test "17. Saber si una relaciÃ³n funciona" {
+	
+	//"una relacion entre ana y pepe funciona, una relacion entre ana y susan no"
+	
+	var ana = new Sim("femenino", 26, 100, [], interesado, 140, "masculino")
+	var susan = new Sim("femenino", 29, 100, [ana], superficial, 600, "masculino")
+	var pepe = new Sim("masculino", 30, 100, [ana,susan], buenazo, 300, "femenino")	
+	
+	pepe.empezarRelacionCon(ana)
+	var relacion = pepe.relacion()
+	pepe.empezarRelacionCon(susan)
+	var otraRelacion = pepe.relacion()
+	assert.that(relacion.funciona() && not otraRelacion.funciona())
+}
+
+test "18. Saber si en una relaciÃ³n se pudrÃ­o todo."{
+	var ana = new Sim("femenino", 26, 100, [pepe], interesado, 140, "masculino")
+	var susan = new Sim("femenino", 29, 100, [ana], superficial, 600, "masculino")
+	var pepe = new Sim("masculino", 30, 100, [], buenazo, 300, "femenino")
+	
+	susan.empezarRelacionCon(ana)
+	var relacion = ana.relacion()
+	assert.that(relacion.sePudrioTodo())
+}
+
+
+test "19. Reestablecer una relaciÃ³n terminada: consiste en hacer que sus miembros originales
+terminen sus relaciones actuales, si tuvieran, y (re)inicien esta relaciÃ³n." {
+	
+	var ana = new Sim("femenino", 26, 100, [], interesado, 140, "masculino")
+	var susan = new Sim("femenino", 29, 100, [ana], superficial, 600, "masculino")
+	var pepe = new Sim("masculino", 30, 100, [ana,susan], buenazo, 300, "femenino")	
+	
+	
+	pepe.empezarRelacionCon(ana)
+	var relacion = pepe.relacion()
+	
+	assert.that(relacion.enCurso())
+	relacion.terminar()
+	assert.that(not relacion.enCurso())
+	relacion.reestablecer()
+	assert.that(relacion.enCurso())
+}

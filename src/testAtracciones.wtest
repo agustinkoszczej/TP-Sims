@@ -1,0 +1,29 @@
+import Celos.*
+import EstadosDeAnimo.*
+import Personalidades.*
+import Relaciones.*
+import Sim.*
+import Trabajos.*
+
+
+test "20. Saber si un sim se siente atraido por otro" {
+	
+	var ana = new Sim("femenino", 26, 100, [], interesado, 140, "masculino")
+	var pepe = new Sim("masculino", 30, 100, [ana], buenazo, 300, "femenino")	
+	var susan = new Sim("femenino", 29, 100, [ana], superficial, 600, "masculino")
+	
+	assert.that(ana.leAtrae(pepe) && not susan.leAtrae(pepe))
+
+}
+
+test "21. Dada una colección de Sims, encontrar los Sims por los que se siente atraído otro Sim" {
+	
+	var ana = new Sim("femenino", 26, 100, [], interesado, 140, "masculino")
+	var pepe = new Sim("masculino", 30, 100, [ana], buenazo, 300, "femenino")	
+	var susan = new Sim("femenino", 29, 100, [ana], superficial, 600, "masculino")
+	var jaime = new Sim("masculino", 31, 125, [], peleadoConLaVida, 10000, "femenino")
+	var loras = new Sim("masculino", 20, 50, [], interesado, 200, "masculino")
+	
+	assert.equals(ana.leAtraenDeLaLista([pepe,susan,jaime,loras]), [pepe, jaime])
+	
+}

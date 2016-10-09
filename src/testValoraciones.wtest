@@ -1,0 +1,27 @@
+import Celos.*
+import EstadosDeAnimo.*
+import Personalidades.*
+import Relaciones.*
+import Sim.*
+import Trabajos.*
+
+test "2. Saber cuánto valora un Sim a otro." {
+	// Ana valora a Pepe por 74
+	var ana = new Sim("femenino", 26, 100, [], interesado, 140, "masculino")
+	var susan = new Sim("femenino", 29, 100, [ana], superficial, 600, "masculino")
+	var pepe = new Sim("masculino", 30, 100, [ana,susan], buenazo, 300, "femenino")	
+
+	assert.equals(ana.valorarSim(pepe), 74)
+
+}
+
+test "3. Saber quien es el amigo a quien más valora un Sim." {
+	// El amigo que pepe mas valora es Ana
+	var ana = new Sim("femenino", 26, 100, [], interesado, 140, "masculino")
+	var susan = new Sim("femenino", 29, 100, [ana], superficial, 600, "masculino")
+	var pepe = new Sim("masculino", 30, 100, [ana,susan], buenazo, 300, "femenino")	
+	
+
+	assert.equals(pepe.amigoMasValorado(), ana)
+
+}

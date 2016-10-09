@@ -1,0 +1,23 @@
+import Celos.*
+import EstadosDeAnimo.*
+import Personalidades.*
+import Relaciones.*
+import Sim.*
+import Trabajos.*
+
+test "26. Hacer que un Sim tenga un estado de ánimo particular. Si el Sim ya tenía uno, se le va 
+(vuelve a la normalidad) y es reemplazada por este" {
+
+	var pepe = new Sim("masculino", 30, 100, [], buenazo, 300, "femenino")	
+	pepe.darEstadoDeAnimo(incomodo)
+	assert.equals(pepe.estadoDeAnimo(), incomodo)
+
+}
+
+test "27. Hacer que a un Sim se le vaya su estado de ánimo actual (y vuelva a la normalidad)" {
+	
+	var pepe = new Sim("masculino", 30, 100, [], buenazo, 300, "femenino")	
+	pepe.darEstadoDeAnimo(incomodo)
+	pepe.darEstadoDeAnimo(soniador)
+	assert.equals(pepe.estadoDeAnimo(), normal)
+}

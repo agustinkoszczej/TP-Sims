@@ -1,0 +1,27 @@
+import Celos.*
+import EstadosDeAnimo.*
+import Personalidades.*
+import Relaciones.*
+import Sim.*
+import Trabajos.*
+
+test "29. Hacer que un Sim vaya a trabajar." {
+
+	var pepe = new Sim("masculino", 30, 100, [], interesado, 100, "femenino")	
+	pepe.asignarTrabajoAburrido(5000, 10)
+	pepe.trabajar()
+	assert.that((pepe.dinero() == 5100) and (pepe.nivelFelicidad() == 90))
+
+}
+
+test "29. Hacer que un Sim desocupado Sim vaya a trabajar" {
+
+	var pepe = new Sim("masculino", 30, 100, [], interesado, 100, "femenino")	
+	pepe.trabajar()
+	assert.that((pepe.dinero() == 100) and (pepe.nivelFelicidad() == 100))
+
+}
+
+/*30. ¿Hay alguna repetición de lógica que sea imposible salvar con las herramientas vistas
+hasta ahora?
+Sí, las asignaciones de los Tipos de Trabajos que tienen que ser una por caso en vez de generalizar y crear un 'new TipoDeTrabajo'*/

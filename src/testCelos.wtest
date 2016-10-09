@@ -1,0 +1,25 @@
+import Celos.*
+import EstadosDeAnimo.*
+import Personalidades.*
+import Relaciones.*
+import Sim.*
+import Trabajos.*
+
+test "28. Hacer que un Sim se ponga celoso por cualquiera de los motivos presentados" {
+	
+	var ana = new Sim("femenino", 26, 200, [], interesado, 140, "masculino")
+	var juana = new Sim("femenino", 20, 100, [ana], superficial, 150, "masculino")
+	var susan = new Sim("femenino", 29, 100, [ana, juana], superficial, 600, "masculino")
+	var pepe = new Sim("masculino", 30, 100, [ana, juana, susan], buenazo, 300, "femenino")	
+	
+	
+	//Popularidad Ana = 0
+	//Popularidad Juana = 200
+	//Popularidad Susan = 300
+	//Popularidad Pepe = 100
+	
+	pepe.ataqueDeCelos(celosPorPopularidad)
+	
+	assert.equals(pepe.amigos(), [ana])
+
+}
