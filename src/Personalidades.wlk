@@ -8,7 +8,7 @@ object interesado {
 	}
 	
 	method leAtraen(unSim, simDeInteres){
-		return (simDeInteres.dinero() >= unSim.dinero()*2)
+		return unSim.duplicaMiFortuna(simDeInteres)
 	}
 }
 
@@ -17,8 +17,8 @@ object superficial {
 		return 20 * simValorado.nivelPopularidad()
 	}
 	
-	method leAtraen(unSim, simDeInteres){
-		return ((simDeInteres.nivelPopularidad() >= unSim.amigoMasPopular().nivelPopularidad()) && simDeInteres.joven())
+	method leAtrae(unSim, simDeInteres){
+		return unSim.masPopularQueAmigo(simDeInteres) && simDeInteres.joven()
 	}
 }
 
@@ -38,6 +38,6 @@ object peleadoConLaVida {
 	}
 	
 	method leAtraen(unSim, simDeInteres){
-		return (simDeInteres.triste())
+		return simDeInteres.triste()
 	}
 }

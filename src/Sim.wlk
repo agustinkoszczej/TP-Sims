@@ -183,14 +183,19 @@ class Sim {
 	}
 	
 	method leAtrae(otroSim){ 
-		if(otroSim.sexo() == preferencia)
-		{	
-			return personalidad.leAtraen(self, otroSim)
-		}
-		else{ 
-			return false
-		}
+		return otroSim.sexo() == preferencia && personalidad.leAtrae(self, otroSim)
 	}
+	
+	method duplicaMiFortuna(unSim)
+	{
+		return unSim.dinero() >= (dinero*2)
+	}
+	
+	method masPopularQueAmigo(unSim) //cambiar nombre
+	{
+		return unSim.nivelPopularidad() >= self.amigoMasPopular().nivelPopularidad()
+	}
+	
 	
 	// INFORMACION Y CONOCIMIENTOS
 	
@@ -247,6 +252,7 @@ class Sim {
 	method darFelicidad(cantidad){
 		nivelFelicidad += cantidad
 	}
+
 	
 	// REQUERIMIENTOS
 	
@@ -285,5 +291,3 @@ class Sim {
 		return listaDeSims.filter({sim => self.leAtrae(sim)})
 	}	
 }
-
-// Comentario de prueba1
