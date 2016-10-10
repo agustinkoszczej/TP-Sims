@@ -10,6 +10,9 @@ object interesado {
 	method leAtrae(unSim, simDeInteres){
 		return unSim.duplicaMiFortuna(simDeInteres)
 	}
+	
+	method trabajar(unSim){
+	}
 }
 
 object superficial {
@@ -19,6 +22,9 @@ object superficial {
 	
 	method leAtrae(unSim, simDeInteres){
 		return unSim.masPopularQueAmigo(simDeInteres) && simDeInteres.joven()
+	}
+	
+	method trabajar(unSim){
 	}
 }
 
@@ -30,6 +36,10 @@ object buenazo {
 	method leAtrae(unSim, simDeInteres){
 		return true
 	}
+	
+	method trabajar(unSim){
+		if(unSim.trabajaConTodosSusAmigos()) unSim.darFelicidad(unSim.nivelFelicidad() * 0.1)
+	}
 }
 
 object peleadoConLaVida {
@@ -39,5 +49,8 @@ object peleadoConLaVida {
 	
 	method leAtrae(unSim, simDeInteres){
 		return simDeInteres.triste()
+	}
+	
+	method trabajar(unSim){
 	}
 }

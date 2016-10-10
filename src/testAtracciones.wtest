@@ -24,6 +24,6 @@ test "21. Dada una colección de Sims, encontrar los Sims por los que se siente a
 	var jaime = new Sim("masculino", 31, 125, [], peleadoConLaVida, 10000, "femenino")
 	var loras = new Sim("masculino", 20, 50, [], interesado, 200, "masculino")
 	
-	assert.equals(ana.leAtraenDeLaLista([pepe,susan,jaime,loras]), [pepe, jaime])
+	assert.equals(ana.quienesMeAtraen([pepe,susan,jaime,loras]), [pepe, jaime])
 	
 }

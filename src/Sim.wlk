@@ -14,7 +14,8 @@ class Sim {
 	var preferencia
 	var conocimientos = #{}
 	var estadoDeAnimo = normal
-	var relacion = new Relacion(self, self)
+	var relacion// = new Relacion(self, self)
+	var soltero = true
 	
 	constructor (unSexo, unaEdad, unNivelDeFelicidad, unosAmigos, unaPersonalidad, unDinero, unaPreferencia){
 		sexo = unSexo
@@ -60,7 +61,14 @@ class Sim {
 		return estadoDeAnimo
 	}
 	method relacion(){
+		if(soltero){
+			error.throwWithMessage("Este sim no esta en ninguna relacion")
+		}		
 		return relacion
+	}
+	
+	method soltero(){
+		return soltero
 	}
 	
 	// AMISTADES
@@ -98,18 +106,18 @@ class Sim {
 	if(duracion <= 2){ 
 		self.darFelicidad(2)
 		unSim.darFelicidad(4)
-		}
+	}
 		
 	//Abrazo Prolongado
-		else{
+	else{
 		if (unSim.leAtrae(self))
 			{
-				unSim.darEstadoDeAnimo(soniador)
+				unSim.estadoDeAnimo(soniador)
 			}
 		else {
-			unSim.darEstadoDeAnimo(incomodo)
+			unSim.estadoDeAnimo(incomodo)
 		}
-		}
+	}
 		
 	
 	}
@@ -120,20 +128,30 @@ class Sim {
 	method empezarRelacionCon(unSim){
 		relacion = new Relacion(self, unSim)
 		unSim.relacion(relacion)
+		unSim.soltero(false)
+		soltero = false
 	}
 	
 	
 	method terminarRelacion(){
-		var pareja = self.pareja()
-		self.pareja().relacion(new Relacion(pareja, pareja))
-		relacion = new Relacion(self, self)
+		//self.pareja().soltero(true)
+		soltero = true
 	}
 	
 	method relacion(unaRelacion){
 		relacion = unaRelacion
 	}
 	
+	method soltero(boleano)
+	{
+		soltero = boleano
+	}
+	
 	method pareja(){
+		
+		if(soltero){
+			error.throwWithMessage("Este sim no tiene pareja")
+		}	
 		if(relacion.unSim() == self){
 			return relacion.otroSim()
 		}
@@ -167,9 +185,6 @@ class Sim {
 	
 	method trabajar(){
 		trabajo.trabajar(self)
-		if ((personalidad === buenazo) && (self.trabajaConTodosSusAmigos())){
-			self.darFelicidad(nivelFelicidad * 0.1)
-		}
 	}
 	
 	// ATRACCIONES
@@ -287,7 +302,7 @@ class Sim {
 		return amigos.take(cantidad)
 	}
 	
-	method leAtraenDeLaLista(listaDeSims){
+	method quienesMeAtraen(listaDeSims){
 		return listaDeSims.filter({sim => self.leAtrae(sim)})
 	}	
 }

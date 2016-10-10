@@ -12,6 +12,7 @@ class Trabajo {
 	method trabajar(unSim){
 		unSim.darFelicidad(felicidad)
 		unSim.darDinero(sueldo)
+		unSim.personalidad().trabajar(self)
 	}
 }
 

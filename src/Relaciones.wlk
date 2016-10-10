@@ -29,7 +29,7 @@ class Relacion{
 	}
 	
 	method esMiembro(sim){
-		return(unSim === sim || otroSim === sim)
+		return not sim.soltero() && (unSim === sim || otroSim === sim)
 	}
 	
 	method terminar(){
@@ -44,14 +44,9 @@ class Relacion{
 	}
 	
 	method sePudrioTodo(){
-		if(self.funciona()){ 
-			return false
-		}
-		else{
-			var amigosGustados = circuloDeAmigos.filter({amigo => unSim.leAtrae(amigo) || otroSim.leAtrae(amigo)})
-			return not amigosGustados.isEmpty()
-		}
-	}
+		var amigosGustados = circuloDeAmigos.filter({amigo => unSim.leAtrae(amigo) || otroSim.leAtrae(amigo)})
+		return not self.funciona() && not amigosGustados.isEmpty()
+	} 
 	
 	method reestablecer(){
 		unSim.terminarRelacion()
@@ -60,3 +55,5 @@ class Relacion{
 		unSim.empezarRelacionCon(otroSim)
 	}
 }
+
+

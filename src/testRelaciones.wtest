@@ -43,8 +43,8 @@ test "13. Hacer que una relaciÃ³n termine, haciendo que sus miembros dejen de 
 	var relacion = pepe.relacion()
 	relacion.terminar()
 	
-	assert.that(not pepe.relacion().esMiembro(ana) && not ana.relacion().esMiembro(pepe))
-	
+	assert.throwsException({pepe.relacion()})
+	assert.throwsException({ana.relacion()})
 }
 
 test "14. Saber si una relaciÃ³n terminÃ³." {
@@ -68,8 +68,8 @@ test "15. Conocer el círculo de amigos de la relación" {
 	var jaime = new Sim("masculino", 31, 125, [], peleadoConLaVida, 10000, "femenino")
 	var loras = new Sim("masculino", 20, 50, [], interesado, 200, "masculino")
 	var ana = new Sim("femenino", 26, 100, [loras,jaime], interesado, 140, "masculino")
-	var susan = new Sim("femenino", 29, 100, [ana,jaime], superficial, 600, "masculino")
-	var pepe = new Sim("masculino", 30, 100, [ana,susan,loras], buenazo, 300, "femenino")	
+	var susan = new Sim("femenino", 29, 150, [ana,jaime], superficial, 600, "masculino")
+	var pepe = new Sim("masculino", 30, 120, [ana,susan,loras], buenazo, 300, "femenino")	
 	
 	pepe.empezarRelacionCon(ana)
 	var relacion = pepe.relacion()

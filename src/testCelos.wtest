@@ -16,10 +16,10 @@ test "28. Hacer que un Sim se ponga celoso por cualquiera de los motivos present
 	//Popularidad Ana = 0
 	//Popularidad Juana = 200
 	//Popularidad Susan = 300
-	//Popularidad Pepe = 100
+	//Popularidad Pepe = 400
 	
-	pepe.ataqueDeCelos(celosPorPopularidad)
+	juana.ataqueDeCelos(celosPorPopularidad)
 	
-	assert.equals(pepe.amigos(), [ana])
+	assert.equals(juana.amigos(), [ana])
 
 }
