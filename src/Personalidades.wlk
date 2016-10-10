@@ -7,7 +7,7 @@ object interesado {
 		return dineroAmigos * 0.1
 	}
 	
-	method leAtraen(unSim, simDeInteres){
+	method leAtrae(unSim, simDeInteres){
 		return unSim.duplicaMiFortuna(simDeInteres)
 	}
 }
@@ -27,7 +27,7 @@ object buenazo {
 		return 0.5 * sim.nivelFelicidad()
 	}
 	
-	method leAtraen(unSim, simDeInteres){
+	method leAtrae(unSim, simDeInteres){
 		return true
 	}
 }
@@ -37,7 +37,7 @@ object peleadoConLaVida {
 		return 0
 	}
 	
-	method leAtraen(unSim, simDeInteres){
+	method leAtrae(unSim, simDeInteres){
 		return simDeInteres.triste()
 	}
 }

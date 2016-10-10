@@ -10,6 +10,8 @@ class Relacion{
 		unSim = sim1
 		otroSim= sim2
 		circuloDeAmigos = (unSim.amigos() + otroSim.amigos()).asSet()
+		circuloDeAmigos.remove(unSim)
+		circuloDeAmigos.remove(otroSim)
 	}
 	
 	
@@ -46,7 +48,7 @@ class Relacion{
 			return false
 		}
 		else{
-			var amigosGustados = circuloDeAmigos.filter({amigo => (unSim.leAtrae(amigo) || otroSim.leAtrae(amigo)) && amigo != unSim && amigo != otroSim})
+			var amigosGustados = circuloDeAmigos.filter({amigo => unSim.leAtrae(amigo) || otroSim.leAtrae(amigo)})
 			return not amigosGustados.isEmpty()
 		}
 	}

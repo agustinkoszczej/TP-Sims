@@ -74,7 +74,7 @@ test "15. Conocer el círculo de amigos de la relación" {
 	pepe.empezarRelacionCon(ana)
 	var relacion = pepe.relacion()
 	
-	assert.equals(relacion.circuloDeAmigos(), #{loras,jaime,susan,ana})
+	assert.equals(relacion.circuloDeAmigos(), #{loras,jaime,susan})
 }
 
 test "16. Conocer los miembros de una relaciÃ³n (siempre son dos)"{
