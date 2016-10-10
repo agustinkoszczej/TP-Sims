@@ -285,3 +285,5 @@ class Sim {
 		return listaDeSims.filter({sim => self.leAtrae(sim)})
 	}	
 }
+
+// Comentario de prueba
