@@ -71,6 +71,10 @@ class Sim {
 		return soltero
 	}
 	
+	method edad(nvaEdad){
+		edad = nvaEdad
+	}
+	
 	// AMISTADES
 	
 	
@@ -298,6 +302,12 @@ class Sim {
 		return (unSim.conocimientos().filter({info => unSim.esConocimientoSecreto(info)}).anyOne())
 	}
 	
+	//FUENTES DE INFORMACION
+	
+	method brindarInformacion(){
+		return self.unChismeDe(amigos.anyOne())
+	}
+	
 	// VARIOS
 	
 	method darDinero(cantidad){
@@ -352,4 +362,18 @@ class Sim {
 	method quienesMeAtraen(listaDeSims){
 		return listaDeSims.filter({sim => self.leAtrae(sim)})
 	}	
+}
+
+object tinelli inherits Sim("masculino", 45, 1000, [], interesado, 10000, "femenino")
+{
+	override method brindarInformacion(){
+		return "Totó"
+	}
+}
+
+object rial inherits Sim("masculino", 45, 1000, [], interesado, 10000, "femenino")
+{
+	override method brindarInformacion(){
+		return "Escándalo"
+	}
 }

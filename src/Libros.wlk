@@ -18,7 +18,7 @@ class Libro{
 		capitulos.add(nvoCapitulo)
 	}
 	
-	method darInformacion(){
+	method brindarInformacion(){
 		return capitulos.anyOne()
 	}
 }
