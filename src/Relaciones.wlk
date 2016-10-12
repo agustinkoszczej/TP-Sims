@@ -7,11 +7,22 @@ class Relacion{
 	var enCurso = true
 	
 	constructor(sim1, sim2){
-		unSim = sim1
-		otroSim= sim2
-		circuloDeAmigos = (unSim.amigos() + otroSim.amigos()).asSet()
-		circuloDeAmigos.remove(unSim)
-		circuloDeAmigos.remove(otroSim)
+		
+		if(sim1.soltero() && sim2.soltero() && not sim1.menor() && not sim2.menor()){	
+			unSim = sim1
+			otroSim= sim2
+			circuloDeAmigos = (unSim.amigos() + otroSim.amigos()).asSet()
+			circuloDeAmigos.remove(unSim)
+			circuloDeAmigos.remove(otroSim)
+		}
+		else{
+			if(sim1.menor() || sim2.menor()){
+				error.throwWithMessage("Dos sims no pueden iniciar una relacion si alguno de los dos tiene 16 anios o menos")
+			}
+			else{
+				error.throwWithMessage("Un sim no puede iniciar una relacion si ya se encuentra en una")
+			}
+		}
 	}
 	
 	

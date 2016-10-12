@@ -13,6 +13,7 @@ class Trabajo {
 		unSim.darFelicidad(felicidad)
 		unSim.darDinero(sueldo)
 		unSim.personalidad().trabajar(self)
+		unSim.volverALaNormalidad()
 	}
 }
 
@@ -23,7 +24,6 @@ class Copado inherits Trabajo {
 		felicidad = unaFelicidad
 	}
 }
-
 
 class Mercenario inherits Trabajo{
 	
@@ -44,4 +44,34 @@ class Aburrido inherits Trabajo{
 	}	
 }
 
-object desocupado inherits Trabajo (0,0){ }
+class AburridoHastaLaMuerte inherits Aburrido{
+	var multiplicadorTrizteza = 4 //Numero constante
+	
+	constructor(unSueldo,unaFelicidad) = super(unSueldo,unaFelicidad) 
+	
+	override method trabajar(unSim){
+		unSim.darFelicidad(felicidad * multiplicadorTrizteza)
+		unSim.darDinero(sueldo)
+		unSim.personalidad().trabajar(self)
+		
+	}
+}
+
+class MercenarioSocial inherits Mercenario{
+	
+	constructor(unSueldo,unaFelicidad) = super(unSueldo,unaFelicidad)
+	
+	override method trabajar(unSim){
+		super(unSim)
+		unSim.darDinero(unSim.cantidadDeAmigos())
+	}
+}
+
+object desocupado inherits Trabajo (0,0){
+	
+	override method trabajar(unSim){
+		unSim.darFelicidad(felicidad)
+		unSim.darDinero(sueldo)
+		unSim.personalidad().trabajar(self)
+	} //preguntar si es mejor hacerlo asi o hacer un override en cada trabajo que solo agregue volverALaNormalidad
+}

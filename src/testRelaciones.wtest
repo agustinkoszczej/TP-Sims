@@ -91,16 +91,17 @@ test "16. Conocer los miembros de una relaciÃ³n (siempre son dos)"{
 
 test "17. Saber si una relaciÃ³n funciona" {
 	
-	//"una relacion entre ana y pepe funciona, una relacion entre ana y susan no"
+	//"una relacion entre ana y pepe funciona, una relacion entre milagros y susan no"
 	
 	var ana = new Sim("femenino", 26, 100, [], interesado, 140, "masculino")
 	var susan = new Sim("femenino", 29, 100, [ana], superficial, 600, "masculino")
-	var pepe = new Sim("masculino", 30, 100, [ana,susan], buenazo, 300, "femenino")	
+	var pepe = new Sim("masculino", 30, 100, [ana,susan], buenazo, 300, "femenino")
+	var milagros = new Sim("femenino", 29, 100, [ana], superficial, 600, "masculino")	
 	
 	pepe.empezarRelacionCon(ana)
 	var relacion = pepe.relacion()
-	pepe.empezarRelacionCon(susan)
-	var otraRelacion = pepe.relacion()
+	milagros.empezarRelacionCon(susan)
+	var otraRelacion = milagros.relacion()
 	assert.that(relacion.funciona() && not otraRelacion.funciona())
 }
 
@@ -131,4 +132,30 @@ terminen sus relaciones actuales, si tuvieran, y (re)inicien esta relaciÃ³n." 
 	assert.that(not relacion.enCurso())
 	relacion.reestablecer()
 	assert.that(relacion.enCurso())
+}
+
+//Entrega 2
+
+//5. Validar las nuevas reglas de negocio sobre relaciones al iniciarlas. Si alguna de las reglas no se cumple, 
+//el sistema debe fallar
+
+test "5. Un sim no puede iniciar una relacion si ya esta en pareja con otro Sim" {
+	
+	var ana = new Sim("femenino", 26, 100, [], interesado, 140, "masculino")
+	var susan = new Sim("femenino", 29, 100, [ana], superficial, 600, "masculino")
+	var pepe = new Sim("masculino", 30, 100, [ana,susan], buenazo, 300, "femenino")
+	
+	pepe.empezarRelacionCon(ana)
+	
+	assert.throwsException({pepe.empezarRelacionCon(susan)})
+	assert.throwsException({susan.empezarRelacionCon(ana)})
+}
+
+test "5. un Sim no puede iniciar una relaci�n si alguno de los dos tiene 16 anios o menos."
+{
+	var nina = new Sim("femenino", 19 , 100, [], interesado, 140, "masculino")
+	var jimmy = new Sim("masculino", 15, 100, [], buenazo, 300, "femenino")
+	
+	assert.throwsException({nina.empezarRelacionCon(jimmy)})
+	
 }
