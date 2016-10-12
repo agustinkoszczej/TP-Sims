@@ -126,12 +126,13 @@ class Sim {
 	
 	
 	method empezarRelacionCon(unSim){
-		relacion = new Relacion(self, unSim)
+		var posibleRelacion =  new Relacion(self, unSim) //hecho asi para que el constructor de Relacion vea si es posible crearla
+		relacion = posibleRelacion
 		unSim.relacion(relacion)
 		unSim.soltero(false)
-		soltero = false
+		soltero = false	
+
 	}
-	
 	
 	method terminarRelacion(){
 		//self.pareja().soltero(true)
@@ -304,6 +305,13 @@ class Sim {
 		nivelFelicidad += cantidad
 	}
 
+	method cantidadDeAmigos(){
+		return amigos.size()
+	}
+	
+	method menor(){
+		return edad <= 16
+	}
 	
 	// REQUERIMIENTOS
 	
