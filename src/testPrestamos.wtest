@@ -1,0 +1,37 @@
+import Celos.*
+import EstadosDeAnimo.*
+import Personalidades.*
+import Relaciones.*
+import Sim.*
+import Trabajos.*
+
+test "1. Saber cuanto dinero está dispuesto a prestarle un Sim a otro" {
+	
+	var pepe = new Sim("masculino", 30, 100, [], buenazo, 300, "femenino")	
+	var susan = new Sim("femenino", 29, 100, [pepe], superficial, 600, "masculino")
+	
+	//Pepe al ser buenazo valora en un 50% el nivel de felicidad de Susan, por lo que 50 * 10 = 500
+	
+	assert.equals(pepe.cuantoPrestaA(susan), 500)
+}
+
+test "2. Hacer que un Sim preste una cantidad de dinero solicitada a otro Sim. Si no puede hacerlo, debe fallar." {
+	
+	//Sin falla
+	
+	var pepe = new Sim("masculino", 30, 100, [], buenazo, 300, "femenino")	
+	var susan = new Sim("femenino", 29, 100, [pepe], superficial, 600, "masculino")
+	
+	pepe.prestarA(susan, 250)	
+	assert.equals(susan.dinero(), 600+250)
+}
+
+test "3. Hacer que un Sim preste una cantidad de dinero solicitada a otro Sim. Si no puede hacerlo, debe fallar." {
+	
+	//Con falla
+	
+	var pepe = new Sim("masculino", 30, 100, [], buenazo, 300, "femenino")	
+	var susan = new Sim("femenino", 29, 100, [pepe], superficial, 600, "masculino")
+	
+	assert.throwsException({pepe.prestarA(susan, 350)})
+}

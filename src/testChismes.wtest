@@ -1,0 +1,45 @@
+
+import Celos.*
+import EstadosDeAnimo.*
+import Personalidades.*
+import Relaciones.*
+import Sim.*
+import Trabajos.*
+
+test "6. Saber si un conocimiento es privado para un Sim" {
+
+	var pepe = new Sim("masculino", 30, 100, [], buenazo, 300, "femenino")	
+	var susan = new Sim("femenino", 29, 100, [pepe], superficial, 600, "masculino")
+	
+	pepe.aprender("Programar")
+	susan.aprender("Bailar")
+	
+	assert.that(susan.esConocimientoSecreto("Bailar"))
+}
+
+test "7. Hacer que un Sim difunda una información" {
+
+	var pepe = new Sim("masculino", 30, 100, [], buenazo, 300, "femenino")	
+	var ana = new Sim("femenino", 26, 100, [pepe], interesado, 140, "masculino")
+	var susan = new Sim("femenino", 29, 100, [pepe, ana], superficial, 600, "masculino")
+	
+	susan.difundirInformacion("Bailar")
+	
+	assert.that(pepe.conoce("Bailar") and (ana.conoce("Bailar")))
+}
+
+test "8. Hacer que un Sim desparrame un chisme de otro Sim" {
+
+	var pepe = new Sim("masculino", 30, 100, [], buenazo, 300, "femenino")	
+	var ana = new Sim("femenino", 26, 100, [pepe], interesado, 140, "masculino")
+	var susan = new Sim("femenino", 29, 100, [pepe, ana], superficial, 600, "masculino")
+	
+	ana.aprender("Programar")
+	ana.aprender("Bailar")
+	
+	pepe.aprender("Programar")
+	
+	susan.desparramarChisme(ana)
+	
+	assert.that(pepe.conoce("Bailar"))
+}

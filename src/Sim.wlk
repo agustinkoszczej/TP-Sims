@@ -214,11 +214,11 @@ class Sim {
 	
 	// INFORMACION Y CONOCIMIENTOS
 	
-	method contarInformacionA(info, unSim){
-		unSim.conocimientos(info)
+	method contarInformacionA(unSim, info){
+		unSim.aprender(info)
 	}
 	
-	method conocimientos(info){ // Setter Conocimientos
+	method aprender(info){ // Setter Conocimientos
 			conocimientos.add(info)
 	}
 	
@@ -256,6 +256,42 @@ class Sim {
 	{
 		self.darFelicidad(-10)
 		tipoDeCelos.ataque(self)
+	}
+	
+	//PRESTAMOS
+	
+	method prestarA(unSim, cantidadDinero){
+		if (self.puedePrestar(unSim, cantidadDinero)){
+			unSim.darDinero(cantidadDinero)
+		}
+		else{
+			self.error("No puedo prestarte :(")
+		}
+	}
+
+	method puedePrestar(otroSim, unaCantidadDeDinero){
+		return ((unaCantidadDeDinero <= dinero) && (unaCantidadDeDinero <= self.cuantoPrestaA(otroSim)))
+	}
+	
+	method cuantoPrestaA(otroSim){
+		return personalidad.cuantoPrestar(self, otroSim)
+	}
+	
+	//DIFUSION, PRIVACIDAD Y CHISMES
+	
+	method difundirInformacion(info){
+		if (not self.conoce(info)){
+			amigos.forEach({amigo => self.contarInformacionA(amigo, info)})
+		}
+		self.aprender(info)
+	}
+
+	method esConocimientoSecreto(info){
+		return not (amigos.any({amigo => amigo.conoce(info)}))
+	}
+
+	method desparramarChisme(unSim){
+		self.difundirInformacion(unSim.conocimientos().filter({info => unSim.esConocimientoSecreto(info)}).anyOne())
 	}
 	
 	// VARIOS

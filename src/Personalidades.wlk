@@ -13,6 +13,11 @@ object interesado {
 	
 	method trabajar(unSim){
 	}
+	
+	method cuantoPrestar(unSim, otroSim){
+			return unSim.dinero()
+	}
+	
 }
 
 object superficial {
@@ -26,6 +31,10 @@ object superficial {
 	
 	method trabajar(unSim){
 	}
+	
+	method cuantoPrestar(unSim, otroSim){
+		return unSim.valorarSim(otroSim) * 10
+	}
 }
 
 object buenazo {
@@ -38,7 +47,13 @@ object buenazo {
 	}
 	
 	method trabajar(unSim){
-		if(unSim.trabajaConTodosSusAmigos()) unSim.darFelicidad(unSim.nivelFelicidad() * 0.1)
+		if(unSim.trabajaConTodosSusAmigos()){
+			unSim.darFelicidad(unSim.nivelFelicidad() * 0.1)
+		}
+	}
+	
+	method cuantoPrestar(unSim, otroSim){
+		return unSim.valorarSim(otroSim) * 10
 	}
 }
 
@@ -52,5 +67,9 @@ object peleadoConLaVida {
 	}
 	
 	method trabajar(unSim){
+	}
+	
+	method cuantoPrestar(unSim, otroSim){
+		return unSim.valorarSim(otroSim) * 10
 	}
 }
