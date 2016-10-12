@@ -291,7 +291,10 @@ class Sim {
 	}
 
 	method desparramarChisme(unSim){
-		self.difundirInformacion(unSim.conocimientos().filter({info => unSim.esConocimientoSecreto(info)}).anyOne())
+		self.difundirInformacion(self.unChismeDe(unSim))
+	}
+	method unChismeDe(unSim){
+		return (unSim.conocimientos().filter({info => unSim.esConocimientoSecreto(info)}).anyOne())
 	}
 	
 	// VARIOS
