@@ -55,8 +55,7 @@ class Relacion{
 	}
 	
 	method sePudrioTodo(){
-		var amigosGustados = circuloDeAmigos.filter({amigo => unSim.leAtrae(amigo) || otroSim.leAtrae(amigo)})
-		return not self.funciona() && not amigosGustados.isEmpty()
+		return not self.funciona() && circuloDeAmigos.any({amigo => (unSim.leAtrae(amigo) || otroSim.leAtrae(amigo))})
 	} 
 	
 	method reestablecer(){

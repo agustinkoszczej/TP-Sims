@@ -5,21 +5,45 @@ import Relaciones.*
 import Sim.*
 import Trabajos.*
 
-test "28. Hacer que un Sim se ponga celoso por cualquiera de los motivos presentados" {
+
+test "28. a) Hacer que un Sim se ponga celoso por popularidad" {
 	
-	var ana = new Sim("femenino", 26, 200, [], interesado, 140, "masculino")
+	var ana = new Sim("femenino", 26, 50, [], interesado, 140, "masculino")
 	var juana = new Sim("femenino", 20, 100, [ana], superficial, 150, "masculino")
-	var susan = new Sim("femenino", 29, 100, [ana, juana], superficial, 600, "masculino")
+	var susan = new Sim("femenino", 29, 300, [ana, juana], superficial, 600, "masculino")
 	var pepe = new Sim("masculino", 30, 100, [ana, juana, susan], buenazo, 300, "femenino")	
 	
+	juana.hacerseAmigoDe(pepe)
 	
 	//Popularidad Ana = 0
-	//Popularidad Juana = 200
-	//Popularidad Susan = 300
-	//Popularidad Pepe = 400
+	//Popularidad Juana = 150
+	//Popularidad Susan = 150
+	//Popularidad Pepe = 450
 	
-	juana.ataqueDeCelos(celosPorPopularidad)
+	juana.ponerseCeloso(celosPorPopularidad)
 	
 	assert.equals(juana.amigos(), [ana])
+	
+}
 
+test "28. b) Hacer que un Sim se ponga celoso por plata"{
+	var ana = new Sim("femenino", 26, 50, [], interesado, 140, "masculino")
+	var juana = new Sim("femenino", 20, 100, [ana], superficial, 150, "masculino")
+	var susan = new Sim("femenino", 29, 300, [ana, juana], superficial, 600, "masculino")
+	var pepe = new Sim("masculino", 30, 100, [ana, juana, susan], buenazo, 300, "femenino")	
+	
+	pepe.ponerseCeloso(celosPorPlata)
+	assert.equals(pepe.amigos(), [ana, juana])
+}
+
+test "28. c) Hacer que un Sim se ponga celoso por pareja"{
+	var ana = new Sim("femenino", 26, 50, [], interesado, 140, "masculino")
+	var juana = new Sim("femenino", 20, 100, [ana], superficial, 150, "masculino")
+	var susan = new Sim("femenino", 29, 300, [ana, juana], superficial, 600, "masculino")
+	var pepe = new Sim("masculino", 30, 100, [ana, juana, susan], buenazo, 300, "femenino")
+	
+	pepe.empezarRelacionCon(juana)
+	pepe.ponerseCeloso(celosPorPareja)
+	assert.equals(pepe.amigos(), [juana, susan])
+	
 }

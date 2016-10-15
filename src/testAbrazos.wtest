@@ -11,8 +11,7 @@ test "Un abrazo corto sube 2 de felicidad del emisor y 4 del receptor" {
 	
 	var ana = new Sim("femenino", 26, 100, [], interesado, 140, "masculino")
 	var pepe = new Sim("masculino", 30, 100, [ana], buenazo, 300, "femenino")	
-	var susan = new Sim("femenino", 29, 100, [ana], superficial, 600, "masculino")
-
+	
 	
 	ana.abrazar(pepe,2)
 	assert.that((ana.nivelFelicidad() == 102) and (pepe.nivelFelicidad() == 104))
@@ -23,8 +22,7 @@ test "En un abrazo largo, si al receptor le atrae el emisor, se siente soñador"
 
 	var ana = new Sim("femenino", 26, 100, [], interesado, 140, "masculino")
 	var pepe = new Sim("masculino", 30, 100, [ana], buenazo, 300, "femenino")	
-	var susan = new Sim("femenino", 29, 100, [ana], superficial, 600, "masculino")
-
+	
 	ana.abrazar(pepe,4)
 	assert.that(pepe.leAtrae(ana) && pepe.estadoDeAnimo() === soniador)
 }

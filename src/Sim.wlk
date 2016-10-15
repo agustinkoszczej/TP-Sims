@@ -75,6 +75,11 @@ class Sim {
 		edad = nvaEdad
 	}
 	
+	//CAMBIAR ESTADO DE ANIMO
+	method estadoDeAnimo(unEstado){
+		estadoDeAnimo = unEstado
+	}
+	
 	// AMISTADES
 	
 	
@@ -257,7 +262,7 @@ class Sim {
 		amigos = amigos.filter(criterio)
 	}
 	
-	method ataqueDeCelos(tipoDeCelos)
+	method ponerseCeloso(tipoDeCelos)
 	{
 		self.darFelicidad(-10)
 		tipoDeCelos.ataque(self)
@@ -359,7 +364,7 @@ class Sim {
 		return amigos.take(cantidad)
 	}
 	
-	method quienesMeAtraen(listaDeSims){
+	method quienesLeAtraen(listaDeSims){
 		return listaDeSims.filter({sim => self.leAtrae(sim)})
 	}	
 }

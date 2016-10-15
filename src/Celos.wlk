@@ -1,15 +1,24 @@
 import Sim.*
 
+object celos {
+	
+	method atacado(unSim, valor){
+		unSim.filtrarAmigos({amigo => amigo.dinero() <= valor})
+	}
+	
+}
+
 object celosPorPlata {
 	method ataque(unSim){
-		unSim.filtrarAmigos({amigo => amigo.dinero() <= unSim.dinero()})
+		celos.atacado(unSim, unSim.dinero())
 	}
 }
 
 object celosPorPopularidad {
 	method ataque(unSim){
-		unSim.filtrarAmigos({amigo => amigo.nivelPopularidad() <= unSim.nivelPopularidad()})
+		celos.atacado(unSim, unSim.nivelPopularidad())
 	}
+	
 }
 
 object celosPorPareja {
