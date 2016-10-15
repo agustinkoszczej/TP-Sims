@@ -11,4 +11,8 @@ class Vim inherits Sim {
 	override method edad(nvaEdad){
 		error.throwWithMessage("Los Vims tienen siempre 18 anios")
 	}
+	
+	override method cumplirAnios(){
+		
+	}
 }

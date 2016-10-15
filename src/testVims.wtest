@@ -1,0 +1,25 @@
+import Personalidades.*
+import Relaciones.*
+import Trabajos.*
+import EstadosDeAnimo.*
+import Celos.*
+import Sim.*
+import Vim.*
+
+test "11. Hacer que un Sim y un Vim cumplan años" {
+	
+	var ana = new Sim("femenino", 26, 100, [], interesado, 140, "masculino")
+	var rob = new Vim("masculino", 100, [], interesado, 140, "femenino")
+	
+	var edadAnaInicial = ana.edad()
+	var edadRobInicial = rob.edad()
+	
+	ana.cumplirAnios()
+	rob.cumplirAnios()
+
+	var edadAnaFinal = ana.edad()
+	var edadRobFinal = rob.edad()
+
+	assert.that(edadAnaFinal == edadAnaInicial + 1 && edadRobFinal == edadRobInicial)
+
+}

@@ -22,6 +22,27 @@ test "29. Hacer que un Sim desocupado Sim vaya a trabajar" {
 
 }
 
+//Entrega 2
+
+//4.Hacer que el Sim cambie su estado de �nimo (si corresponde) cuando va a trabajar.
+
+test "4-a. Un sim empleado va a trabajar y su estado de animo cambia a normal" {
+
+	var pepe = new Sim("masculino", 30, 100, [], interesado, 100, "femenino")	
+	pepe.asignarTrabajoAburrido(5000, 10)
+	pepe.estadoDeAnimo(incomodo)
+	pepe.trabajar()
+	assert.that(pepe.estadoDeAnimo() === normal)
+}
+
+test "4-b. Un sim Desempleado va a trabajar y su estado de animo no cambia" {
+
+	var pepe = new Sim("masculino", 30, 100, [], interesado, 100, "femenino")	
+	pepe.estadoDeAnimo(incomodo)
+	pepe.trabajar()
+	assert.equals(pepe.estadoDeAnimo(),incomodo)
+}
+
 /*30. ¿Hay alguna repetición de lógica que sea imposible salvar con las herramientas vistas
 hasta ahora?
 Sí, las asignaciones de los Tipos de Trabajos que tienen que ser una por caso en vez de generalizar y crear un 'new TipoDeTrabajo'*/

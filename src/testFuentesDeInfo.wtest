@@ -1,0 +1,23 @@
+import Celos.*
+import EstadosDeAnimo.*
+import Personalidades.*
+import Relaciones.*
+import Sim.*
+import Trabajos.*
+import Libros.*
+
+test "10. Hacer que un Sim se informe" {
+//: consiste en solicitarle a cada una de sus fuentes de información un conocimiento, y hacer que el Sim lo aprenda.	
+	
+	var ana = new Sim("femenino", 26, 100, [], interesado, 140, "masculino")
+	var susan = new Sim("femenino", 29, 100, [ana], superficial, 600, "masculino")
+	var pepe = new Sim("masculino", 30, 100, [ana,susan], buenazo, 300, "femenino")	
+	var biblia = new Libro("La Biblia", ["dios es bueno", "diablo es malo"]){} 
+	
+	//conocimientos inicia vacio
+	ana.fuentesDeInformacion([biblia, rial, tinelli])
+	ana.informarse()
+	
+	assert.that((ana.conoce("dios es bueno") || ana.conoce("diablo es malo")) && ana.conoce("Totó") && ana.conoce("Escándalo"))
+
+}

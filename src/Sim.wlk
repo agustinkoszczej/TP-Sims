@@ -3,6 +3,8 @@ import Relaciones.*
 import Trabajos.*
 import EstadosDeAnimo.*
 import Celos.*
+import Libros.*
+
 class Sim {
 	var sexo
 	var edad
@@ -16,6 +18,7 @@ class Sim {
 	var estadoDeAnimo = normal
 	var relacion// = new Relacion(self, self)
 	var soltero = true
+	var fuentesDeInformacion = []
 	
 	constructor (unSexo, unaEdad, unNivelDeFelicidad, unosAmigos, unaPersonalidad, unDinero, unaPreferencia){
 		sexo = unSexo
@@ -73,11 +76,6 @@ class Sim {
 	
 	method edad(nvaEdad){
 		edad = nvaEdad
-	}
-	
-	//CAMBIAR ESTADO DE ANIMO
-	method estadoDeAnimo(unEstado){
-		estadoDeAnimo = unEstado
 	}
 	
 	// AMISTADES
@@ -228,7 +226,11 @@ class Sim {
 		unSim.aprender(info)
 	}
 	
-	method aprender(info){ // Setter Conocimientos
+	method conocimientos(nvosConocimientos){ // Setter Conocimientos
+		conocimientos = nvosConocimientos
+	}
+	
+	method aprender(info){ 
 			conocimientos.add(info)
 	}
 	
@@ -248,7 +250,7 @@ class Sim {
 	
 	// ESTADOS DE ANIMO
 	
-	method sentirse(estado){
+	method estadoDeAnimo(estado){
 			estadoDeAnimo = estado
 			estado.efectuar(self)		
 	}
@@ -313,6 +315,15 @@ class Sim {
 		return self.unChismeDe(amigos.anyOne())
 	}
 	
+	method informarse(){  
+		conocimientos.addAll(fuentesDeInformacion.map({fuente => fuente.brindarInformacion()}))
+		//preguntar si se puede hacer asi con addall o hay que usar el metodo "aprender" en cada uno
+	}
+	
+	method fuentesDeInformacion(unasFuentes){ //setter
+		fuentesDeInformacion = unasFuentes
+	}
+	
 	// VARIOS
 	
 	method darDinero(cantidad){
@@ -367,6 +378,10 @@ class Sim {
 	method quienesLeAtraen(listaDeSims){
 		return listaDeSims.filter({sim => self.leAtrae(sim)})
 	}	
+	
+	method cumplirAnios(){
+		edad++
+	}
 }
 
 object tinelli inherits Sim("masculino", 45, 1000, [], interesado, 10000, "femenino")
