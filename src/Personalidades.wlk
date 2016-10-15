@@ -1,6 +1,13 @@
 import Sim.*
+
+class Personalidades {
+	method presta(unSim, otroSim)
+	{
+		return unSim.valorarSim(otroSim) * 10
+	}
+}
 	
-object interesado {
+object interesado inherits Personalidades {
 	method valorarPersonalidad (sim, simValorado){
 		var amigosDelSim = simValorado.amigos()
 		var dineroAmigos = amigosDelSim.sum({unSim => unSim.dinero()})
@@ -15,12 +22,12 @@ object interesado {
 	}
 	
 	method cuantoPrestar(unSim, otroSim){
-			return unSim.dinero()
+			return (otroSim.dinero()).min(self.presta(unSim, otroSim))
 	}
 	
 }
 
-object superficial {
+object superficial inherits Personalidades {
 	method valorarPersonalidad  (sim, simValorado){
 		return 20 * simValorado.nivelPopularidad()
 	}
@@ -33,11 +40,11 @@ object superficial {
 	}
 	
 	method cuantoPrestar(unSim, otroSim){
-		return unSim.valorarSim(otroSim) * 10
+		return self.presta(unSim, otroSim)
 	}
 }
 
-object buenazo {
+object buenazo inherits Personalidades {
 	method valorarPersonalidad (sim, simValorado){
 		return 0.5 * sim.nivelFelicidad()
 	}
@@ -53,11 +60,11 @@ object buenazo {
 	}
 	
 	method cuantoPrestar(unSim, otroSim){
-		return unSim.valorarSim(otroSim) * 10
+		return self.presta(unSim, otroSim)
 	}
 }
 
-object peleadoConLaVida {
+object peleadoConLaVida inherits Personalidades {
 	method valorarPersonalidad (sim, simValorado){
 		return 0
 	}
@@ -70,6 +77,6 @@ object peleadoConLaVida {
 	}
 	
 	method cuantoPrestar(unSim, otroSim){
-		return unSim.valorarSim(otroSim) * 10
+		return self.presta(unSim, otroSim)
 	}
 }
