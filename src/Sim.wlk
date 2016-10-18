@@ -16,7 +16,7 @@ class Sim {
 	var preferencia
 	var conocimientos = #{}
 	var estadoDeAnimo = normal
-	var relacion// = new Relacion(self, self)
+	var relacion
 	var soltero = true
 	var fuentesDeInformacion = []
 	

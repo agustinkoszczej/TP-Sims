@@ -30,3 +30,14 @@ test "1.b Hacer que un Sim abrace a otro." {
 	ana.abrazar(pepe, prolongado)
 	assert.equals(pepe.estadoDeAnimo(), soniador)	
 }
+
+test "1.c Hacer que un Sim abrace a otro." {
+	
+	//Abrazo Prolongado
+	
+	var ana = new Sim("femenino", 26, 100, [], interesado, 140, "masculino")
+	var susan = new Sim("femenino", 29, 100, [ana], superficial, 600, "masculino")	
+		
+	ana.abrazar(susan, prolongado)
+	assert.equals(susan.estadoDeAnimo(), incomodo)	
+}

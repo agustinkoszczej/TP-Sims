@@ -70,8 +70,7 @@ class MercenarioSocial inherits Mercenario{
 object desocupado inherits Trabajo (0,0){
 	
 	override method trabajar(unSim){
-		unSim.darFelicidad(felicidad)
-		unSim.darDinero(sueldo)
-		unSim.personalidad().trabajar(self)
+		/*unSim.darFelicidad(felicidad)
+		unSim.darDinero(sueldo)*/
 	} //preguntar si es mejor hacerlo asi o hacer un override en cada trabajo que solo agregue volverALaNormalidad
 }
