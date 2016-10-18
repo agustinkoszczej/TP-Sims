@@ -5,13 +5,15 @@ class Personalidades {
 	{
 		return unSim.valorarSim(otroSim) * 10
 	}
+	
+	method cuantoPrestar(unSim, otroSim){
+		return self.presta(unSim, otroSim)
+	}
 }
 	
 object interesado inherits Personalidades {
 	method valorarPersonalidad (sim, simValorado){
-		var amigosDelSim = simValorado.amigos()
-		var dineroAmigos = amigosDelSim.sum({unSim => unSim.dinero()})
-		return dineroAmigos * 0.1
+		return 0.1 * (simValorado.amigos()).sum({unSim => unSim.dinero()})
 	}
 	
 	method leAtrae(unSim, simDeInteres){
@@ -21,7 +23,7 @@ object interesado inherits Personalidades {
 	method trabajar(unSim){
 	}
 	
-	method cuantoPrestar(unSim, otroSim){
+	override method cuantoPrestar(unSim, otroSim){
 			return (otroSim.dinero()).min(self.presta(unSim, otroSim))
 	}
 	
@@ -33,14 +35,10 @@ object superficial inherits Personalidades {
 	}
 	
 	method leAtrae(unSim, simDeInteres){
-		return unSim.masPopularQueAmigo(simDeInteres) && simDeInteres.joven()
+		return simDeInteres.masPopularQueAmigos() && simDeInteres.joven()
 	}
 	
 	method trabajar(unSim){
-	}
-	
-	method cuantoPrestar(unSim, otroSim){
-		return self.presta(unSim, otroSim)
 	}
 }
 
@@ -58,10 +56,6 @@ object buenazo inherits Personalidades {
 			unSim.darFelicidad(unSim.nivelFelicidad() * 0.1)
 		}
 	}
-	
-	method cuantoPrestar(unSim, otroSim){
-		return self.presta(unSim, otroSim)
-	}
 }
 
 object peleadoConLaVida inherits Personalidades {
@@ -74,9 +68,5 @@ object peleadoConLaVida inherits Personalidades {
 	}
 	
 	method trabajar(unSim){
-	}
-	
-	method cuantoPrestar(unSim, otroSim){
-		return self.presta(unSim, otroSim)
 	}
 }

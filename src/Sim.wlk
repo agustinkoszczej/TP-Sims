@@ -3,7 +3,7 @@ import Relaciones.*
 import Trabajos.*
 import EstadosDeAnimo.*
 import Celos.*
-import Libros.*
+import FuentesDeInformacion.*
 
 class Sim {
 	var sexo
@@ -107,26 +107,8 @@ class Sim {
 	
 	// ABRAZOS
 	
-	method abrazar(unSim, duracion) {
-		
-	//Abrazo Comun
-	if(duracion <= 2){ 
-		self.darFelicidad(2)
-		unSim.darFelicidad(4)
-	}
-		
-	//Abrazo Prolongado
-	else{
-		if (unSim.leAtrae(self))
-			{
-				unSim.estadoDeAnimo(soniador)
-			}
-		else {
-			unSim.estadoDeAnimo(incomodo)
-		}
-	}
-		
-	
+	method abrazar(unSim, tipo) {	
+	tipo.abrazar(self, unSim)
 	}
 	
 	// RELACIONES (PAREJAS)
@@ -214,12 +196,6 @@ class Sim {
 		return unSim.dinero() >= (dinero*2)
 	}
 	
-	method masPopularQueAmigo(unSim) //cambiar nombre
-	{
-		return unSim.nivelPopularidad() >= self.amigoMasPopular().nivelPopularidad()
-	}
-	
-	
 	// INFORMACION Y CONOCIMIENTOS
 	
 	method contarInformacionA(unSim, info){
@@ -250,7 +226,7 @@ class Sim {
 	
 	// ESTADOS DE ANIMO
 	
-	method estadoDeAnimo(estado){
+	method sentirse(estado){
 			estadoDeAnimo = estado
 			estado.efectuar(self)		
 	}
@@ -275,6 +251,7 @@ class Sim {
 	method prestarA(unSim, cantidadDinero){
 		if (self.puedePrestar(unSim, cantidadDinero)){
 			unSim.darDinero(cantidadDinero)
+			self.darDinero(-cantidadDinero)
 		}
 		else{
 			self.error("No puedo prestarte :(")
@@ -381,19 +358,5 @@ class Sim {
 	
 	method cumplirAnios(){
 		edad++
-	}
-}
-
-object tinelli inherits Sim("masculino", 45, 1000, [], interesado, 10000, "femenino")
-{
-	override method brindarInformacion(){
-		return "Totó"
-	}
-}
-
-object rial inherits Sim("masculino", 45, 1000, [], interesado, 10000, "femenino")
-{
-	override method brindarInformacion(){
-		return "Escándalo"
 	}
 }

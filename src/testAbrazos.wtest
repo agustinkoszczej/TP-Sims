@@ -1,3 +1,4 @@
+import Abrazos.*
 import Celos.*
 import EstadosDeAnimo.*
 import Personalidades.*
@@ -7,35 +8,25 @@ import Trabajos.*
 
 //1. Hacer que un Sim abrace a otro.
 
-test "Un abrazo corto sube 2 de felicidad del emisor y 4 del receptor" {
+test "1.a Hacer que un Sim abrace a otro." {
+	
+	//Abrazo Comun
 	
 	var ana = new Sim("femenino", 26, 100, [], interesado, 140, "masculino")
 	var pepe = new Sim("masculino", 30, 100, [ana], buenazo, 300, "femenino")	
-	
-	
-	ana.abrazar(pepe,2)
+		
+	ana.abrazar(pepe, comun)
 	assert.that((ana.nivelFelicidad() == 102) and (pepe.nivelFelicidad() == 104))
 	
 }
 
-test "En un abrazo largo, si al receptor le atrae el emisor, se siente soñador" {
-
-	var ana = new Sim("femenino", 26, 100, [], interesado, 140, "masculino")
-	var pepe = new Sim("masculino", 30, 100, [ana], buenazo, 300, "femenino")	
+test "1.b Hacer que un Sim abrace a otro." {
 	
-	ana.abrazar(pepe,4)
-	assert.that(pepe.leAtrae(ana) && pepe.estadoDeAnimo() === soniador)
-}
-
-test "En un abrazo largo, si al receptor NO le atrae el emisor, se siente incomodo"{
+	//Abrazo Prolongado
 	
 	var ana = new Sim("femenino", 26, 100, [], interesado, 140, "masculino")
 	var pepe = new Sim("masculino", 30, 100, [ana], buenazo, 300, "femenino")	
-	var susan = new Sim("femenino", 29, 100, [ana], superficial, 600, "masculino")
-	
-	pepe.abrazar(susan,4)
-	assert.that(not susan.leAtrae(pepe) && susan.estadoDeAnimo() === incomodo )
-	
+		
+	ana.abrazar(pepe, prolongado)
+	assert.equals(pepe.estadoDeAnimo(), soniador)	
 }
-
-

@@ -35,13 +35,3 @@ test "2.b Hacer que un Sim intente prestar una cantidad de dinero que no tiene" 
 	
 	assert.throwsException({pepe.prestarA(susan, 350)})
 }
-
-test "2.c Hacer que un Sim intente prestar una cantidad de dinero que no quiere" {
-	
-	//Con falla
-	
-	var pepe = new Sim("masculino", 30, 100, [], interesado, 3000, "femenino")	
-	var susan = new Sim("femenino", 29, 100, [pepe], superficial, 100, "masculino")
-	
-	assert.throwsException({pepe.prestarA(susan, 101)})
-}

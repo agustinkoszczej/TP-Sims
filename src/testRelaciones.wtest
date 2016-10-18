@@ -6,7 +6,7 @@ import Sim.*
 import Trabajos.*
 
 
-test "11. Hacer que dos Sims inicien una relaciÃ³n" {
+test "11. Hacer que dos Sims inicien una relacion" {
 	
 	var ana = new Sim("femenino", 26, 100, [], interesado, 140, "masculino")
 	var susan = new Sim("femenino", 29, 100, [ana], superficial, 600, "masculino")
@@ -17,7 +17,7 @@ test "11. Hacer que dos Sims inicien una relaciÃ³n" {
 
 }
 
-test "12. Saber si un Sim forma parte de una relaciÃ³n." {
+test "12. Saber si un Sim forma parte de una relacion." {
 	
 	//Ana forma parte de una relacion entre Pepe y Ana, y Susan no
 	
@@ -33,7 +33,7 @@ test "12. Saber si un Sim forma parte de una relaciÃ³n." {
 	
 }
 
-test "13. Hacer que una relaciÃ³n termine, haciendo que sus miembros dejen de formar parte de ella." {
+test "13. Hacer que una relacion termine, haciendo que sus miembros dejen de formar parte de ella." {
 	
 	var ana = new Sim("femenino", 26, 100, [], interesado, 140, "masculino")
 	var susan = new Sim("femenino", 29, 100, [ana], superficial, 600, "masculino")
@@ -47,7 +47,7 @@ test "13. Hacer que una relaciÃ³n termine, haciendo que sus miembros dejen de 
 	assert.throwsException({ana.relacion()})
 }
 
-test "14. Saber si una relaciÃ³n terminÃ³." {
+test "14. Saber si una relacion termino." {
 	
 	//Si una relacion termina ya no esta en curso
 	
@@ -63,7 +63,7 @@ test "14. Saber si una relaciÃ³n terminÃ³." {
 }
 
 
-test "15. Conocer el círculo de amigos de la relación" {
+test "15. Conocer el circulo de amigos de la relacion" {
 	
 	var jaime = new Sim("masculino", 31, 125, [], peleadoConLaVida, 10000, "femenino")
 	var loras = new Sim("masculino", 20, 50, [], interesado, 200, "masculino")
@@ -77,7 +77,7 @@ test "15. Conocer el círculo de amigos de la relación" {
 	assert.equals(relacion.circuloDeAmigos(), #{loras,jaime,susan})
 }
 
-test "16. Conocer los miembros de una relaciÃ³n (siempre son dos)"{
+test "16. Conocer los miembros de una relacion (siempre son dos)"{
 	var ana = new Sim("femenino", 26, 100, [], interesado, 140, "masculino")
 	var susan = new Sim("femenino", 29, 100, [ana], superficial, 600, "masculino")
 	var pepe = new Sim("masculino", 30, 100, [ana,susan], buenazo, 300, "femenino")	
@@ -89,7 +89,7 @@ test "16. Conocer los miembros de una relaciÃ³n (siempre son dos)"{
 }
 
 
-test "17. Saber si una relaciÃ³n funciona" {
+test "17. Saber si una relacion funciona" {
 	
 	//"una relacion entre ana y pepe funciona, una relacion entre milagros y susan no"
 	
@@ -105,7 +105,7 @@ test "17. Saber si una relaciÃ³n funciona" {
 	assert.that(relacion.funciona() && not otraRelacion.funciona())
 }
 
-test "18. Saber si en una relaciÃ³n se pudrÃ­o todo."{
+test "18. Saber si en una relacion se pudrio todo."{
 	var ana = new Sim("femenino", 26, 100, [pepe], interesado, 140, "masculino")
 	var susan = new Sim("femenino", 29, 100, [ana], superficial, 600, "masculino")
 	var pepe = new Sim("masculino", 30, 100, [], buenazo, 300, "femenino")
@@ -116,8 +116,8 @@ test "18. Saber si en una relaciÃ³n se pudrÃ­o todo."{
 }
 
 
-test "19. Reestablecer una relaciÃ³n terminada: consiste en hacer que sus miembros originales
-terminen sus relaciones actuales, si tuvieran, y (re)inicien esta relaciÃ³n." {
+test "19. Reestablecer una relacion terminada: consiste en hacer que sus miembros originales
+terminen sus relaciones actuales, si tuvieran, y (re)inicien esta relacion." {
 	
 	var ana = new Sim("femenino", 26, 100, [], interesado, 140, "masculino")
 	var susan = new Sim("femenino", 29, 100, [ana], superficial, 600, "masculino")
@@ -134,7 +134,7 @@ terminen sus relaciones actuales, si tuvieran, y (re)inicien esta relaciÃ³n." 
 	assert.that(relacion.enCurso())
 }
 
-//Entrega 2
+//ENTREGA 2
 
 //5. Validar las nuevas reglas de negocio sobre relaciones al iniciarlas. Si alguna de las reglas no se cumple, 
 //el sistema debe fallar

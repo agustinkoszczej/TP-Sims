@@ -4,7 +4,7 @@ import Personalidades.*
 import Relaciones.*
 import Sim.*
 import Trabajos.*
-import Libros.*
+import FuentesDeInformacion.*
 
 test "10. Hacer que un Sim se informe" {
 //: consiste en solicitarle a cada una de sus fuentes de información un conocimiento, y hacer que el Sim lo aprenda.	

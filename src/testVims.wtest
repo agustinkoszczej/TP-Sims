@@ -23,3 +23,10 @@ test "11. Hacer que un Sim y un Vim cumplan años" {
 	assert.that(edadAnaFinal == edadAnaInicial + 1 && edadRobFinal == edadRobInicial)
 
 }
+
+/*12. Explicar qué cambios sería necesario realizar si quisiéramos contemplar la posibilidad de
+que un Vim muerda a un Sim, convirtiéndolo en Vim.
+ 
+ Se podría tener un atributo en Sim llamado especie que de acuerdo a si lo muerden o no, variaria entre
+ humano y vim, que sean objetos y se modela cómo cumple años a partir de esos objetos para indicar la especie
+ del Sim*/

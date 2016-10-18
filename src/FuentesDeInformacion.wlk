@@ -22,3 +22,17 @@ class Libro{
 		return capitulos.anyOne()
 	}
 }
+
+object tinelli inherits Sim("masculino", 45, 1000, [], interesado, 999999, "femenino")
+{
+	override method brindarInformacion(){
+		return "Totó"
+	}
+}
+
+object rial inherits Sim("masculino", 45, 1000, [], interesado, 888888, "femenino")
+{
+	override method brindarInformacion(){
+		return "Escándalo"
+	}
+}
