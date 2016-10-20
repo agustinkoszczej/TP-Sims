@@ -14,8 +14,8 @@ class Libro{
 		capitulos = unosCapitulos
 	}
 	
-	method escribirCapitulo(nvoCapitulo){
-		capitulos.add(nvoCapitulo)
+	method escribirCapitulo(nuevoCapitulo){
+		capitulos.add(nuevoCapitulo)
 	}
 	
 	method brindarInformacion(){

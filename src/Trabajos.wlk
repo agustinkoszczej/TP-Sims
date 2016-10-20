@@ -9,12 +9,26 @@ class Trabajo {
 		felicidad = unaFelicidad
 	}
 	
+	method sueldo(unSim){
+		return sueldo
+	}
+	
+	method felicidad(unSim){
+		return felicidad
+	}
+	
+	
 	method trabajar(unSim){
-		unSim.darFelicidad(felicidad)
-		unSim.darDinero(sueldo)
+		unSim.darFelicidad(self.felicidad(unSim))
+		unSim.darDinero(self.sueldo(unSim))
 		unSim.personalidad().trabajar(self)
 		unSim.volverALaNormalidad()
 	}
+
+
+
+	
+	
 }
 
 class Copado inherits Trabajo {
@@ -31,8 +45,13 @@ class Mercenario inherits Trabajo{
 		sueldo = unSueldo
 		felicidad = unaFelicidad
 	}
-	override method trabajar(unSim){
-		unSim.darDinero(100 + 0.02 * unSim.dinero())
+	
+	method fijoMercenario(unSim){
+		return 100 + unSim.dinero() / 50
+	}
+	
+	override method sueldo(unSim){
+		return self.fijoMercenario(unSim)
 	}
 }
 
@@ -45,31 +64,35 @@ class Aburrido inherits Trabajo{
 }
 
 class AburridoHastaLaMuerte inherits Aburrido{
-	var multiplicadorTrizteza = 4 //Numero constante
+	var factorTristeza = 4 //Numero constante
 	
-	constructor(unSueldo,unaFelicidad) = super(unSueldo,unaFelicidad) 
-	
-	override method trabajar(unSim){
-		unSim.darFelicidad(felicidad * multiplicadorTrizteza)
-		unSim.darDinero(sueldo)
-		unSim.personalidad().trabajar(self)
-		
+	constructor(unSueldo,unaFelicidad) = super(unSueldo,unaFelicidad){
+		sueldo = unSueldo
+		felicidad = -unaFelicidad
 	}
+	
+	override method felicidad(unSim){
+		return factorTristeza * felicidad 
+	}
+	
+	
 }
 
 class MercenarioSocial inherits Mercenario{
 	
-	constructor(unSueldo,unaFelicidad) = super(unSueldo,unaFelicidad)
+	constructor (unSueldo, unaFelicidad) = super(unSueldo, unaFelicidad){
+		sueldo = unSueldo
+		felicidad = unaFelicidad
+	}
 	
-	override method trabajar(unSim){
-		super(unSim)
-		unSim.darDinero(unSim.cantidadDeAmigos())
+	override method sueldo(unSim){
+		return self.fijoMercenario(unSim) + (unSim.amigos()).size()
 	}
 }
 
-object desocupado inherits Trabajo (0,0){
+object desocupado {
 	
-	override method trabajar(unSim){
+	method trabajar(unSim){
 		/*unSim.darFelicidad(felicidad)
 		unSim.darDinero(sueldo)*/
 	} //preguntar si es mejor hacerlo asi o hacer un override en cada trabajo que solo agregue volverALaNormalidad

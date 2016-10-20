@@ -153,19 +153,27 @@ class Sim {
 	
 	// DINERO Y TRABAJO
 	
-	method asignarTrabajoCopado (sueldo, felicidad){
+	method asignarTrabajoCopado(sueldo, felicidad){
 		trabajo = new Copado (sueldo, felicidad)
 	}
 	
-	method asignarTrabajoMercenario (sueldo, felicidad){
-		trabajo = new Mercenario (sueldo, felicidad)
+	method asignarTrabajoMercenario (){
+		trabajo = new Mercenario (0,0)
 	}
 	
 	method asignarTrabajoAburrido (sueldo, felicidad){
 		trabajo = new Aburrido (sueldo, felicidad)
 	}
 	
-	method quedarDesempleado (sueldo, felicidad){
+	method asignarTrabajoAburridoHastaLaMuerte (sueldo, felicidad){
+		trabajo = new AburridoHastaLaMuerte (sueldo, felicidad)
+	}
+	
+	method asignarTrabajoMercenarioSocial(){
+		trabajo = new MercenarioSocial(0, 0)
+	}
+	
+	method quedarDesempleado (){
 		trabajo = desocupado
 	}
 	
@@ -270,7 +278,7 @@ class Sim {
 	
 	method difundirInformacion(info){
 		if (not self.conoce(info)){
-			amigos.forEach({amigo => self.contarInformacionA(amigo, info)})
+			amigos.forEach({amigo => amigo.difundirInformacion(info)})
 		}
 		self.aprender(info)
 	}

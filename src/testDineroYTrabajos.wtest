@@ -5,6 +5,7 @@ import Relaciones.*
 import Sim.*
 import Trabajos.*
 
+
 test "29.a Hacer que un Sim vaya a trabajar." {
 
 	var pepe = new Sim("masculino", 30, 100, [], interesado, 100, "femenino")	
@@ -32,13 +33,38 @@ Si, las asignaciones de los Tipos de Trabajos que tienen que ser una por caso en
 
 //4.Hacer que el Sim cambie su estado de ánimo (si corresponde) cuando va a trabajar.
 
-test "4.a Un sim empleado va a trabajar y su estado de animo cambia a normal" {
+test "4.a Un sim con empleo aburrido va a trabajar y su estado de animo cambia a normal" {
 
 	var pepe = new Sim("masculino", 30, 100, [], interesado, 100, "femenino")	
 	pepe.asignarTrabajoAburrido(5000, 10)
 	pepe.sentirse(incomodo)
 	pepe.trabajar()
 	assert.equals(pepe.estadoDeAnimo(), normal)
+}
+
+test "Un sim con trabajo aburrido hasta la muerte va a trabajar y pierde felicidad"{
+	var pepe = new Sim("masculino", 30, 200, [], interesado, 100, "femenino")	
+	pepe.asignarTrabajoAburridoHastaLaMuerte(5000, 30)
+	pepe.trabajar()
+	assert.equals(pepe.nivelFelicidad(), 80)
+}
+
+test "Un sim con trabajo de mercenario gana plata"{
+	var pepe = new Sim("masculino", 30, 200, [], interesado, 100, "femenino")	
+	pepe.asignarTrabajoMercenario()
+	pepe.trabajar()
+	assert.equals(pepe.dinero(), 202)
+	
+}
+
+test "Un mercenario social gana plata"{
+	var camila = new Sim("femenino", 10, 10, [], buenazo, 200, "femenino")
+	var rosalinda = new Sim("femenino", 10, 10, [], buenazo, 200, "femenino")
+	var pepe = new Sim("masculino", 30, 200, [camila, rosalinda], interesado, 100, "femenino")	
+	pepe.asignarTrabajoMercenarioSocial()
+	pepe.trabajar()
+	assert.equals(pepe.dinero(), 204)
+	
 }
 
 test "4.b Un sim Desempleado va a trabajar y su estado de animo no cambia" {
