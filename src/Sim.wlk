@@ -158,7 +158,7 @@ class Sim {
 	}
 	
 	method asignarTrabajoMercenario (){
-		trabajo = new Mercenario (0,0)
+		trabajo = new Mercenario()
 	}
 	
 	method asignarTrabajoAburrido (sueldo, felicidad){
@@ -170,7 +170,7 @@ class Sim {
 	}
 	
 	method asignarTrabajoMercenarioSocial(){
-		trabajo = new MercenarioSocial(0, 0)
+		trabajo = new MercenarioSocial()
 	}
 	
 	method quedarDesempleado (){

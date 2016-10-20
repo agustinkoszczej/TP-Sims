@@ -8,71 +8,51 @@ class Trabajo {
 		sueldo = unSueldo
 		felicidad = unaFelicidad
 	}
-	
-	method sueldo(unSim){
-		return sueldo
-	}
-	
-	method felicidad(unSim){
-		return felicidad
-	}
-	
-	
+
 	method trabajar(unSim){
-		unSim.darFelicidad(self.felicidad(unSim))
-		unSim.darDinero(self.sueldo(unSim))
-		unSim.personalidad().trabajar(self)
+		unSim.darFelicidad(felicidad)
+		unSim.darDinero(sueldo)
+		unSim.personalidad().trabajar(unSim)
 		unSim.volverALaNormalidad()
 	}
-
-
-
-	
 	
 }
 
 class Copado inherits Trabajo {
 	
-	constructor (unSueldo, unaFelicidad) = super(unSueldo, unaFelicidad){
-		sueldo = unSueldo
-		felicidad = unaFelicidad
-	}
+	constructor (unSueldo, unaFelicidad) = super(unSueldo, unaFelicidad)
 }
 
 class Mercenario inherits Trabajo{
 	
-	constructor (unSueldo, unaFelicidad) = super(unSueldo, unaFelicidad){
-		sueldo = unSueldo
-		felicidad = unaFelicidad
+	constructor() = super(0, 0)
+	
+	method bonoMercenario(unSim){
+		return unSim.dinero() * 0.02
 	}
 	
-	method fijoMercenario(unSim){
-		return 100 + unSim.dinero() / 50
-	}
-	
-	override method sueldo(unSim){
-		return self.fijoMercenario(unSim)
+	override method trabajar(unSim){
+		sueldo = 100 + self.bonoMercenario(unSim)
+		super(unSim)
 	}
 }
 
 class Aburrido inherits Trabajo{
 	
-	constructor (unSueldo, unaFelicidad) = super(unSueldo, unaFelicidad){
-		sueldo = unSueldo
-		felicidad = -unaFelicidad
-	}	
+	constructor (unSueldo, unaFelicidad) = super(unSueldo, unaFelicidad*(-1))
+
 }
 
 class AburridoHastaLaMuerte inherits Aburrido{
 	var factorTristeza = 4 //Numero constante
 	
-	constructor(unSueldo,unaFelicidad) = super(unSueldo,unaFelicidad){
-		sueldo = unSueldo
-		felicidad = -unaFelicidad
-	}
+	constructor(unSueldo,unaFelicidad) = super(unSueldo,unaFelicidad)
 	
-	override method felicidad(unSim){
-		return factorTristeza * felicidad 
+	override method trabajar(unSim){
+		unSim.darFelicidad(felicidad * factorTristeza)
+		unSim.darDinero(sueldo)
+		unSim.personalidad().trabajar(self)
+		unSim.volverALaNormalidad()		
 	}
 	
 	
@@ -80,20 +60,16 @@ class AburridoHastaLaMuerte inherits Aburrido{
 
 class MercenarioSocial inherits Mercenario{
 	
-	constructor (unSueldo, unaFelicidad) = super(unSueldo, unaFelicidad){
-		sueldo = unSueldo
-		felicidad = unaFelicidad
-	}
-	
-	override method sueldo(unSim){
-		return self.fijoMercenario(unSim) + (unSim.amigos()).size()
+	constructor() = super()
+
+	override method trabajar(unSim){
+		super(unSim)
+		unSim.darDinero(unSim.cantidadDeAmigos())
 	}
 }
 
-object desocupado {
+object desocupado inherits Trabajo (0,0){
 	
-	method trabajar(unSim){
-		/*unSim.darFelicidad(felicidad)
-		unSim.darDinero(sueldo)*/
-	} //preguntar si es mejor hacerlo asi o hacer un override en cada trabajo que solo agregue volverALaNormalidad
+	override method trabajar(unSim){
+	}
 }

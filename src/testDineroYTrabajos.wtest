@@ -33,38 +33,13 @@ Si, las asignaciones de los Tipos de Trabajos que tienen que ser una por caso en
 
 //4.Hacer que el Sim cambie su estado de ánimo (si corresponde) cuando va a trabajar.
 
-test "4.a Un sim con empleo aburrido va a trabajar y su estado de animo cambia a normal" {
+test "4.a Un sim con empleo va a trabajar y su estado de animo cambia a normal" {
 
 	var pepe = new Sim("masculino", 30, 100, [], interesado, 100, "femenino")	
 	pepe.asignarTrabajoAburrido(5000, 10)
 	pepe.sentirse(incomodo)
 	pepe.trabajar()
 	assert.equals(pepe.estadoDeAnimo(), normal)
-}
-
-test "Un sim con trabajo aburrido hasta la muerte va a trabajar y pierde felicidad"{
-	var pepe = new Sim("masculino", 30, 200, [], interesado, 100, "femenino")	
-	pepe.asignarTrabajoAburridoHastaLaMuerte(5000, 30)
-	pepe.trabajar()
-	assert.equals(pepe.nivelFelicidad(), 80)
-}
-
-test "Un sim con trabajo de mercenario gana plata"{
-	var pepe = new Sim("masculino", 30, 200, [], interesado, 100, "femenino")	
-	pepe.asignarTrabajoMercenario()
-	pepe.trabajar()
-	assert.equals(pepe.dinero(), 202)
-	
-}
-
-test "Un mercenario social gana plata"{
-	var camila = new Sim("femenino", 10, 10, [], buenazo, 200, "femenino")
-	var rosalinda = new Sim("femenino", 10, 10, [], buenazo, 200, "femenino")
-	var pepe = new Sim("masculino", 30, 200, [camila, rosalinda], interesado, 100, "femenino")	
-	pepe.asignarTrabajoMercenarioSocial()
-	pepe.trabajar()
-	assert.equals(pepe.dinero(), 204)
-	
 }
 
 test "4.b Un sim Desempleado va a trabajar y su estado de animo no cambia" {
@@ -74,4 +49,31 @@ test "4.b Un sim Desempleado va a trabajar y su estado de animo no cambia" {
 	pepe.trabajar()
 	assert.equals(pepe.estadoDeAnimo(), incomodo)
 }
+
+test "4.c Un sim con trabajo aburrido hasta la muerte va a trabajar y pierde felicidad"{
+	var pepe = new Sim("masculino", 30, 200, [], interesado, 100, "femenino")	
+	pepe.asignarTrabajoAburridoHastaLaMuerte(5000, 30)
+	pepe.trabajar()
+	assert.equals(pepe.nivelFelicidad(), 80)
+}
+
+test "4.d Un sim con trabajo de mercenario gana $100 + 2% de lo que tenia"{
+	var pepe = new Sim("masculino", 30, 200, [], interesado, 100, "femenino")	
+	pepe.asignarTrabajoMercenario()
+	pepe.trabajar()
+	assert.equals(pepe.dinero(), 202)
+	
+}
+
+test "4.e Un mercenario social gana $100 + 2% de lo que tenia + cantidad de amigos"{
+	var camila = new Sim("femenino", 10, 10, [], buenazo, 200, "femenino")
+	var rosalinda = new Sim("femenino", 10, 10, [], buenazo, 200, "femenino")
+	var pepe = new Sim("masculino", 30, 200, [camila, rosalinda], interesado, 100, "femenino")	
+	pepe.asignarTrabajoMercenarioSocial()
+	pepe.trabajar()
+	assert.equals(pepe.dinero(), 204)
+	
+}
+
+
 
