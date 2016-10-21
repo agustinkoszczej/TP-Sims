@@ -278,7 +278,7 @@ class Sim {
 	
 	method difundirInformacion(info){
 		if (not self.conoce(info)){
-			amigos.forEach({amigo => amigo.difundirInformacion(info)})
+			amigos.forEach({amigo => self.contarInformacionA(amigo, info)})
 		}
 		self.aprender(info)
 	}
@@ -302,7 +302,6 @@ class Sim {
 	
 	method informarse(){  
 		conocimientos.addAll(fuentesDeInformacion.map({fuente => fuente.brindarInformacion()}))
-		//preguntar si se puede hacer asi con addall o hay que usar el metodo "aprender" en cada uno
 	}
 	
 	method fuentesDeInformacion(unasFuentes){ //setter
