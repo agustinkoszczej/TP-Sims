@@ -23,16 +23,16 @@ class Libro{
 	}
 }
 
-object tinelli inherits Sim("masculino", 45, 1000, [], interesado, 999999, "femenino")
+object tinelli
 {
-	override method brindarInformacion(){
+	method brindarInformacion(){
 		return "Totó"
 	}
 }
 
-object rial inherits Sim("masculino", 45, 1000, [], interesado, 888888, "femenino")
+object rial
 {
-	override method brindarInformacion(){
+	method brindarInformacion(){
 		return "Escándalo"
 	}
 }

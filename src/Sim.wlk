@@ -16,8 +16,7 @@ class Sim {
 	var preferencia
 	var conocimientos = #{}
 	var estadoDeAnimo = normal
-	var relacion
-	var soltero = true
+	var relacion = soltero
 	var fuentesDeInformacion = []
 	
 	constructor (unSexo, unaEdad, unNivelDeFelicidad, unosAmigos, unaPersonalidad, unDinero, unaPreferencia){
@@ -64,14 +63,11 @@ class Sim {
 		return estadoDeAnimo
 	}
 	method relacion(){
-		if(soltero){
-			error.throwWithMessage("Este sim no esta en ninguna relacion")
-		}		
-		return relacion
+		return relacion.mismo()
 	}
 	
 	method soltero(){
-		return soltero
+		return relacion === soltero
 	}
 	
 	method edad(nvaEdad){
@@ -118,30 +114,18 @@ class Sim {
 		var posibleRelacion =  new Relacion(self, unSim) //hecho asi para que el constructor de Relacion vea si es posible crearla
 		relacion = posibleRelacion
 		unSim.relacion(relacion)
-		unSim.soltero(false)
-		soltero = false	
-
 	}
 	
 	method terminarRelacion(){
-		//self.pareja().soltero(true)
-		soltero = true
+		relacion = soltero
 	}
 	
 	method relacion(unaRelacion){
 		relacion = unaRelacion
 	}
 	
-	method soltero(boleano)
-	{
-		soltero = boleano
-	}
-	
 	method pareja(){
 		
-		if(soltero){
-			error.throwWithMessage("Este sim no tiene pareja")
-		}	
 		if(relacion.unSim() == self){
 			return relacion.otroSim()
 		}
@@ -223,7 +207,7 @@ class Sim {
 		return conocimientos.contains(info)
 	}
 	
-	method cuanConocedorEs()
+	method nivelDeConocimiento()
 	{
 		return self.conocimientos().sum({saber => saber.length()})
 	}
@@ -242,7 +226,7 @@ class Sim {
 		estadoDeAnimo = normal
 	} 
 	
-	// ATAQUES DE CELOS
+	// atacarS DE CELOS
 	
 	method filtrarAmigos(criterio){
 		amigos = amigos.filter(criterio)
@@ -251,27 +235,29 @@ class Sim {
 	method ponerseCeloso(tipoDeCelos)
 	{
 		self.darFelicidad(-10)
-		tipoDeCelos.ataque(self)
+		tipoDeCelos.atacar(self)
 	}
 	
 	//PRESTAMOS
 	
-	method prestarA(unSim, cantidadDinero){
-		if (self.puedePrestar(unSim, cantidadDinero)){
-			unSim.darDinero(cantidadDinero)
-			self.darDinero(-cantidadDinero)
-		}
-		else{
-			self.error("No puedo prestarte :(")
-		}
+	method prestarDinero(unSim, cantidadDinero){
+		if (not self.puedePrestar(unSim, cantidadDinero)){
+			self.error("Este sim no puede prestar esa cantidad")
+		}		
+		unSim.recibirDinero(cantidadDinero)
+		self.gastarDinero(cantidadDinero)
 	}
 
 	method puedePrestar(otroSim, unaCantidadDeDinero){
-		return ((unaCantidadDeDinero <= dinero) && (unaCantidadDeDinero <= self.cuantoPrestaA(otroSim)))
+		return ((unaCantidadDeDinero <= dinero) && (unaCantidadDeDinero <= self.dineroQueQuierePrestar(otroSim)))
 	}
 	
-	method cuantoPrestaA(otroSim){
-		return personalidad.cuantoPrestar(self, otroSim)
+	method dineroQueQuierePrestar(otroSim){
+		return personalidad.maximoPrestamo(self, otroSim)
+	}
+	
+	method gastarDinero(cantidad){
+		dinero -= cantidad
 	}
 	
 	//DIFUSION, PRIVACIDAD Y CHISMES
@@ -310,7 +296,7 @@ class Sim {
 	
 	// VARIOS
 	
-	method darDinero(cantidad){
+	method recibirDinero(cantidad){
 		dinero += cantidad
 	}
 	
@@ -324,6 +310,10 @@ class Sim {
 	
 	method menor(){
 		return edad <= 16
+	}
+	
+	method dineroDeAmigos(){
+		return amigos.sum({amigo=> amigo.dinero()})
 	}
 	
 	// REQUERIMIENTOS
@@ -347,7 +337,7 @@ class Sim {
 			return amigos.max({unSim => unSim.nivelPopularidad()})
 	}
 	
-	method masPopularQueAmigos(){
+	method esElMasPopular(){
 		return self.nivelPopularidad() > self.amigoMasPopular().nivelPopularidad()
 	}
 	

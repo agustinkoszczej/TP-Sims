@@ -1,38 +1,34 @@
 import Sim.*
 
 class Celo{
-	var criterio
-	
-	method definirCriterio(unCriterio){
-		criterio = unCriterio
-	}
 	 
-	method ataque(unSim){
-		unSim.filtrarAmigos(criterio)
+	method atacar(unSim){
+		unSim.filtrarAmigos({amigo => self.filtrar(unSim, amigo)})
 	}
 	
+	method filtrar(unSim, amigo){
+		return false
+	}
 }
 
 object celosPorPlata inherits Celo {
 	
-	override method ataque(unSim){
-		self.definirCriterio({amigo => amigo.dinero() <= unSim.dinero()})
-		super(unSim)
+	override method filtrar(unSim, amigo){
+		return amigo.dinero() <= unSim.dinero()
 	}
 
 }
 
 object celosPorPopularidad inherits Celo{
 	
-	override method ataque(unSim){
-		self.definirCriterio({amigo => amigo.nivelPopularidad() <= unSim.nivelPopularidad()})
-		super(unSim)
+	override method filtrar(unSim, amigo){
+		return amigo.nivelPopularidad() <= unSim.nivelPopularidad()
 	}
 }
 
 object celosPorPareja inherits Celo{
-	override method ataque(unSim){
-		self.definirCriterio({amigo => not unSim.pareja().esAmigoDe(amigo)})
-		super(unSim)
+		
+		override method filtrar(unSim, amigo){
+		return  not unSim.pareja().esAmigoDe(amigo)
 	}
 }

@@ -10,12 +10,19 @@ class Trabajo {
 	}
 
 	method trabajar(unSim){
-		unSim.darFelicidad(felicidad)
-		unSim.darDinero(sueldo)
+		unSim.darFelicidad(self.felicidad(unSim))
+		unSim.recibirDinero(self.sueldo(unSim))
 		unSim.personalidad().trabajar(unSim)
 		unSim.volverALaNormalidad()
 	}
 	
+	method sueldo(unSim){
+		return sueldo
+	}
+	
+	method felicidad(unSim){
+		return felicidad
+	}
 }
 
 class Copado inherits Trabajo {
@@ -31,9 +38,8 @@ class Mercenario inherits Trabajo{
 		return unSim.dinero() * 0.02
 	}
 	
-	override method trabajar(unSim){
-		sueldo = 100 + self.bonoMercenario(unSim)
-		super(unSim)
+	override method sueldo(unSim){
+		return 100 + self.bonoMercenario(unSim)
 	}
 }
 
@@ -48,13 +54,10 @@ class AburridoHastaLaMuerte inherits Aburrido{
 	
 	constructor(unSueldo,unaFelicidad) = super(unSueldo,unaFelicidad)
 	
-	override method trabajar(unSim){
-		unSim.darFelicidad(felicidad * factorTristeza)
-		unSim.darDinero(sueldo)
-		unSim.personalidad().trabajar(self)
-		unSim.volverALaNormalidad()		
+	override method felicidad(unSim)
+	{
+		return felicidad * factorTristeza
 	}
-	
 	
 }
 
@@ -64,7 +67,7 @@ class MercenarioSocial inherits Mercenario{
 
 	override method trabajar(unSim){
 		super(unSim)
-		unSim.darDinero(unSim.cantidadDeAmigos())
+		unSim.recibirDinero(unSim.cantidadDeAmigos())
 	}
 }
 
